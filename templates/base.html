@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang='en'>
+        <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+                <title>CR PROJECT</title>
+        </head>
+        <body>
+						<div class="sticky-top">
+                <div class="row justify-content-md-center">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href='{{  url('index') }}'>Ciderol</a>
+                        <button class='navbar-toggler' type='button' data-toggle='collapse' data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                        <li class="nav-item active">
+                                               <a class="nav-link" href="{{ url('index') }}">Главная</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('userprojects') }}">Проекты</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('about') }}">Как это работает?</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('contacts') }}">Контакты</a>
+                                        </li>
+                                        {% if not current_user %}
+                                        <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('login') }}">Вход</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('signup') }}">Регистрация</a>
+                                        </li>
+                                        {% else %}
+                                        <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="{{ url('profile') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{ user.name }}
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item" href="{{ url('profile') }}">Личный кабинет</a>
+                                                        <a class="dropdown-item" href="{{ url('myprojects') }}">Мои проекты</a>
+                                                 <a class="dropdown-item" href="#">Сообщения</a>
+                                                 <a class="dropdown-item" href="#">Настройки</a>
+                                                 <div class="dropdown-divider"></div>
+                                                 <a class="dropdown-item" href="{{ url('logout') }}">Выход</a>
+                                                </div>
+                                        </li>
+                                        {% endif %}
+                                </ul>
+                        </div>
+
+                </nav>
+                </div>
+						</div>
+                {% block content %}
+                {% endblock%}
+                {% block body %}
+                
+
+                <h1 class="display-3">Solve your problems</h1>
+<br>
+
+<div class="jumbotron">
+  <h1 class="display-4">Лучшие проекты</h1>
+  <p class="lead">Это простой пример блока с компонентом в стиле jumbotron для привлечения дополнительного внимания к содержанию или информации.</p>
+
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Яндекс</h4>
+        <h5 class="card-title">75.000</h5>
+        <p class="card-text">Задание задание задание задание задание задание.</p>
+        <a href="#" class="btn btn-primary">Перейти</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Пятерочка</h4>
+        <h5 class="card-title">Работа</h5>
+        <p class="card-text">Задание задание задание задание задание задание.</p>
+        <a href="#" class="btn btn-primary">Перейти</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Правительство Удмуртии</h4>
+        <h5 class="card-title">Знание</h5>
+        <p class="card-text">Задание задание задание задание задание задание.</p>
+        <a href="#" class="btn btn-primary">Перейти</a>
+      </div>
+    </div>
+</div>
+</div>
+</div>               
+<br>
+<br>
+
+<div class="jumbotron">
+  <h1 class="display-4">Как это работает?</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Краудсорсинг</h3>
+        <p class="card-text">Привлечение к решению тех или иных проблем инновационной производственной деятельности широкого круга лиц для использования их творческих способностей</p>
+        <a href="#" class="btn btn-primary">Перейти</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+              <iframe width="672" height="378" src="https://www.youtube.com/embed/dY6pmZD9oN8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      
+      </div>
+    </div>
+  </div>
+ </div>
+</div>        
+
+<br>
+<br>
+
+<div class="jumbotron">
+  <h1 class="display-4">Спонсировать</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Яндекс кошелек</h4>
+        <p class="card-text">Счет:868678607</p>
+        <a href="#" class="btn btn-primary">Спонсировать</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Контакты</h4>
+        <p class="card-text">Почта: Марат@привет.ру</p>
+        <a href="#" class="btn btn-primary">Написать</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<br>
+<br>
+
+
+
+
+
+                {% endblock %}
+        </body>
+
+<html>

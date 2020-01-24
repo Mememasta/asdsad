@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="row justify-content-md-center">
+<ul class="nav">
+  <li class="nav-item">
+        <a class="nav-link active" href="#">Технологи</a>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" href="#">IT</a>
+  </li>
+  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Исследования
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Научные</a>
+                <a class="dropdown-item" href="#">Социальные</a>
+                <a class="dropdown-item" href="#">Экономические</a>
+                <a class="dropdown-item" href="#">другие</a>
+        </div>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" href="#">Бизнес</a>
+  </li>
+</ul>
+</div>
+
+<div class="container">
+	<div class="row">
+  	<div class="col-sm-10">
+        <h1> Все проекты  </h1>
+        <h5> Помогай миру двигаться вперед!</h5>
+  	</div>
+		<div class="col-sm-2">
+        {% if user %}
+                <a href="create_project" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Создать проект</a>
+        {% endif %}
+		</div>
+	</div>
+<div>
+
+        <br>        
+
+{% for proj in project %}
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-body">
+              <h4 class="card-title">{{ proj.name }}</h4>
+              <h5 class="card-title">{{ proj.gift }}</h5>
+        <p class="card-text">{{ proj.description}}</p>
+        <a href="/view?project_id={{proj.id}}" class="btn btn-primary">Перейти</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+  							<video width="300" height="170" controls="controls" autoplay>
+                        <source src="{{ url('static', filename=proj.video)  }}" >
+                </video>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}
+
+{% block body %}
+{% endblock %}

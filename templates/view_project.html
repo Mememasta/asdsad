@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<form action="/view" method=post >
+        <input type="text" name="project_id" hidden value="{{ project.id  }}">
+        <input type="text" name="user_id" hidden value="{{ user.id  }}">
+        <input type="submit" class="btn btn-primary" value="Участвовать" />
+        
+</form>
+<h1>{{ project.member }} </h1>
+
+<h2> {{project.name}} </h2>
+<div class="row">
+  <div class="col-sm-7">
+    <div class="card">
+      <div class="card-body">
+                <video width="800" height="300" controls="controls" autoplay>
+                        <source src="{{ url('static', filename=project.video)  }}" >
+                </video>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <div class="card">
+      <div class="card-body">
+              <h3 class="card-title">Приз: {{ project.gift  }}</h3>
+              <h4 class="card-title">Окончание конкурса: {{ project.deadline }}</h4>
+              <h4 class="card-title">Описание: {{ project.description  }} </h4>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block body %}
+{% endblock %}

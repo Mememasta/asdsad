@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1> Hello, it's lk </h1>
+
+
+<div class="container">
+  <div class="row justify-content-md-center">
+  
+<div class="card" style="width: 18rem;">
+  <img src="{{ url('static', filename=user.user_photo) }}" class="card-img-top" alt="...">
+  <div class="card-body">
+          <h5 class="card-title">{{user.name}} {{user.secondname}}</h5>
+    <p class="card-text">Какая-то информация</p>
+  </div>
+  <ul class="list-group list-group-flush">
+          <li class="list-group-item">Почта: {{user.email}}</li>
+          <li class="list-group-item">Город: {{user.city}}</li>
+          <li class="list-group-item">Телефон: {{user.phone}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="myprojects" class="card-link">Мои проекты</a>
+    <a href="#" class="card-link">Настройки</a>
+  </div>
+</div>
+
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+{% endblock %}

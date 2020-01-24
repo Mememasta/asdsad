@@ -170,6 +170,7 @@ class CreateProjects:
         description = data['description']
         presentation = data['presentation']
         deadline = data['deadline']
+        member = 0
         gift = data['gift']
         video = data['video']
 
@@ -188,7 +189,7 @@ class CreateProjects:
 
             presentation = '/presentation/{}'.format(presentation.filename)
             video = '/video/{}'.format(video.filename)
-            result = await Project.create_project(self.app['db'], name, company, int(author_id), description, presentation, deadline, gift, video)
+            result = await Project.create_project(self.app['db'], name, company, int(author_id), description, presentation, deadline, member, gift, video)
             location = self.app.router['userprojects'].url_for()
 
 
@@ -221,7 +222,8 @@ class ViewProject:
         print('-------------------------------')
         print(member)
         url = '/view?project_id={}'.format(project_id)
-        result = await Project.add_members(self.app['db'], member)
+        add_member = await Project.add_members(self.app['db'], member, int(project_id))
+        add_user_in_project = await Project.create_user_in_project(self.app['db'], int(user_id), int(project_id))
 
         return web.HTTPFound(url)
         

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+	 <!-- Заголовок название группы-->
+    <div class="container" style="margin-top:25px">
+      <h1 align="center"> Название группы </h1>
+    </div>
+    
+	<!-- Таблиа участников -->
+	<div class="container">
+		<h2 style="text-decoration: underline"> Участники группы</h2>
+		
+		<div style="display: inline">
+			<h3 style="font-style: italic"> Лидер группы: Иванов Иван <a  style="font-size:24px"href="#" role="button">&#9997;</a></h3>
+			
+			<!-- Кнопка изменения лидера -->
+			<button type="button" class="glo" data-toggle="modal" data-target="#staticBackdrop">
+			 &#9997;
+			</button>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h4 class="modal-title" id="staticBackdropLabel"> Изменение лидера </h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  
+				  <!-- Форма для добавления  -->
+				  <div class="modal-body">                
+					<form>
+					  <div class="form-group">
+						<label for="exampleInputEmail1">Введите Имя и Фамилию может код</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					  </div>
+					  <button type="submit" class="btn btn-primary"> Изменить </button>
+					</form>                
+				  </div>
+				  
+				</div>
+			  </div>
+			</div> 
+		
+		</div>
+		
+		<!-- Список участников -->
+        <h4>1. Чучалов Марат</h4>
+		<h4>2. Иванов Иван</h4>
+		<h4>3. Russkikh Nikita</h4>
+		
+		<!-- Кнопка добавления участника -->
+        <button type="button" class="glo" data-toggle="modal" data-target="#staticBackdrop">
+         &#10010; Добавить
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="staticBackdropLabel"> Добавить участника </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <!-- Форма для добавления  -->
+              <div class="modal-body">                
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Введите Имя и Фамилию может код</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>                
+              </div>
+              
+            </div>
+          </div>
+        </div>        
+        
+	<hr class="betwen_projects">
+	</div>
+	<br>
+	
+	
+	<!-- Мои группы -->
+	<div class="container">
+		<h2 style="text-decoration: underline"> Проекты </h2>
+		<br>
+		<div class="row">
+		  <div class="col-md-9">
+			<h4>Добыча ПИ(ссылкой)</h4>
+		  </div>
+		  <div class="col-md-3">
+			<a href="#" class="glo" > Отправить решение </a>
+		  </div>
+		</div>
+		<hr class="betwen_projects">
+	</div>
+	<br>
+	
+	
+	<!-- Реклама -->
+	<div class="container">
+		<h2 style="text-decoration: underline"> Реклама </h2>
+		<div class="row">
+		  <div class="col-md-8">
+			 <h4> Услуги повара, работающего в ЛУвре, 236767326 call now </h4>
+		  </div>
+		  {% if user.user_photo %}
+		  <div class="col-md-4">
+			<img src="{{ url('static', filename=user.user_photo) }}"  height="50px" class="card-img-top" alt="...">
+		  </div>
+		  {% endif %}
+		</div>
+		<hr class="betwen_projects">
+	</div>
+	<br>
+
+{% endblock %}
+
+
+{% block body %}
+{% endblock %}

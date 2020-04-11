@@ -1,43 +1,101 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
 
-<form action="/view" method=post >
-        <input type="text" name="project_id" hidden value="{{ project.id  }}">
-        <input type="text" name="user_id" hidden value="{{ user.id  }}">
-        <input type="submit" class="btn btn-primary" value="Участвовать" />
-        
-</form>
-<h1>{{ project.member }} </h1>
 
-<h2> {{project.name}} </h2>
-<div class="row">
-  <div class="col-sm-7">
-    <div class="card">
-      <div class="card-body">
-                <video width="800" height="300" controls="controls" autoplay>
-                        <source src="{{ url('static', filename=project.video)  }}" >
-                </video>
+    <!-- Заголовок название проекта-->
+    <div class="container" style="margin-top:25px">
+      <h1 align="center">{{project.name}}</h1>
+    </div>
+    <br>
+    
+    {% if project.video %}
+    <!-- Видео и основная инфа -->
+    <div class="super_container">
+      <div class="row">
+        <div class="col-lg-7" >
+          <video src="{{ url('static', filename=project.video)  }}" width="100%" controls></video>
+        </div>
+        <div class="col-lg-5">
+          <h2> Приз: {{ project.gift  }} </h2>
+          <hr>
+          <h3> Компания: {{ project.company }} </h3>
+          <h3> Участников: {{ project.member }} </h3>
+          <h4> Окончание конкурса: {{ dt }} </h4>
+          <!-- Кнопка участвовать -->
+          {% if current_user %}
+             {% if user_in_project %}   
+                <form action="/view" method=post >
+                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                </form>
+             {% else %}
+                <form action="/view" method=post >
+                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                </form>
+             {% endif %}   
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-5">
-    <div class="card">
-      <div class="card-body">
-              <h3 class="card-title">Приз: {{ project.gift  }}</h3>
-              <h4 class="card-title">Окончание конкурса: {{ project.deadline }}</h4>
-              <h4 class="card-title">Описание: {{ project.description  }} </h4>
+    <br>
+    
+    <div class="container">
+      <p class="lead text-justify"> Описание проекта: {{ project.description  }} </p>
+    </div>
+    <br>
+    <br>
+    
+    {% else %}
+    <div class="super_container">
+      <div class="row">
+        <div class="col-md-5" >
+          <h2>Приз: {{ project.gift }}</h2>
+          <hr>
+          <h3> Компания: {{ project.company }} </h3>
+          <h3> Участников: {{ project.member }} </h3>
+          <h4> Окончание конкурса: {{ dt }} </h4>
+        </div>
+        <div class="col-md-7">
+          <p class="lead text-justify"> {{ project.description  }} </p>
+          <!-- Кнопка участвовать -->
+
+          {% if current_user %}
+             {% if user_in_project %}   
+                <form action="/view" method=post >
+                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                </form>
+             {% else %}
+                <form action="/view" method=post >
+                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                </form>
+             {% endif %}   
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
+    <br>
+    
+    {% endif %}
 
-</div>
+    <!-- Презентация -->
+    <div class="container">
+      <embed src="{{ url('static', filename=project.presentation) }}"  class="pdf"  height="800px" width="100%" />
+      <a href="{{ url('static', filename=project.presentation) }}" class="pre" download>Открыть презентацию</a>
+    </div>
+    <br>
 
 
 
 
 {% endblock %}
 
-{% block body %}
-{% endblock %}

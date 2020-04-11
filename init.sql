@@ -1,20 +1,11 @@
 
 
-
-create table groups (
-        id serial primary key,
-        name varchar(255),
-        author_id integer references users(id),
-        commander integer references users(id)
-        
-);
-
 create table users (
         id serial primary key,
-        name varchar(255),
+        name varchar(255) NOT NULL,
         secondname varchar(255),
-        email varchar(255),
-        phone integer,
+        email varchar(255) not null,
+        phone bigint,
         birthday VARCHAR(40),
         occupation varchar(255),
         city varchar(40),
@@ -24,16 +15,29 @@ create table users (
 );
 
 
+
+
+create table groups (
+        id serial primary key,
+        name varchar(255),
+        author_id integer references users(id),
+        commander integer references users(id),
+        project_id integer references projects(id)
+        
+        
+);
+
+
 create table projects (
         id serial primary key,
-        name VARCHAR(255),
-        company text,
-        author_id integer references users(id),
-        description text,
+        name VARCHAR(255) not null,
+        company VARCHAR(255) not null,
+        author_id integer references users(id) not null,
+        description text not null,
         presentation VARCHAR(255),
-        deadline VARCHAR(255),
+        deadline timestamptz
         member Integer,
-        gift text,
+        gift text not null,
         video VARCHAR(255)
 );
 

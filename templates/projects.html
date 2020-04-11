@@ -1,76 +1,97 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
-
-<div class="row justify-content-md-center">
-<ul class="nav">
-  <li class="nav-item">
-        <a class="nav-link active" href="#">Технологи</a>
-  </li>
-  <li class="nav-item">
-        <a class="nav-link" href="#">IT</a>
-  </li>
-  <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Исследования
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Научные</a>
-                <a class="dropdown-item" href="#">Социальные</a>
-                <a class="dropdown-item" href="#">Экономические</a>
-                <a class="dropdown-item" href="#">другие</a>
-        </div>
-  </li>
-  <li class="nav-item">
-        <a class="nav-link" href="#">Бизнес</a>
-  </li>
-</ul>
+<!--Загаловок-->
+<div class="container" style="margin-top:25px">
+  <h1 class="heading"> Все проекты </h1>
 </div>
 
-<div class="container">
+<!--Фильтр и поиск-->
+<div class="container" style="margin-top:25px">
 	<div class="row">
-  	<div class="col-sm-10">
-        <h1> Все проекты  </h1>
-        <h5> Помогай миру двигаться вперед!  "Разум и руки"</h5>
+  	<div class="col-md-4 ">
+        <select class="custom-select custom-select-lg mb-3 sort_project">
+          <option selected>Все проекты</option>
+          <option value="1">IT</option>
+          <option value="2">Тенологии и исследования</option>
+          <option value="3">Бизнес</option>
+          <option value="4">Другое</option>         
+        </select>
   	</div>
-		<div class="col-sm-2">
-        {% if user %}
-                <a href="create_project" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Создать проект</a>
-        {% endif %}
+		<div class="col-md-8 d1 ">
+      <form >
+        <input  type="text" placeholder="Search" aria-label="Search">
+        <button type="submit">Поиск</button>
+      </form>
 		</div>
 	</div>
-<div>
-
-        <br>        
-
-{% for proj in project %}
-<div class="shadow-sm p-3 mb-5 bg-white rounded">
-<div class="row">
-  <div class="col-sm-8">
-    <div class="card">
-      <div class="card-body">
-              <h4 class="card-title">{{ proj.name }}</h4>
-              <h5 class="card-title">{{ proj.gift }}</h5>
-        <p class="card-text">{{ proj.description}}</p>
-        <a href="/view?project_id={{proj.id}}" class="btn btn-primary">Перейти</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-body">
-  							<video width="300" height="170" controls="controls" autoplay>
-                        <source src="{{ url('static', filename=proj.video)  }}" >
-                </video>
-      </div>
-    </div>
-  </div>
-
+  <hr class="betwen_projects">
 </div>
+  
+
+     
+<!-- Projects -->
+{% for proj in project %}
+<div class="container">
+{% if proj.video %}
+<div class="container project_shadow zoom" id='id{{proj.id}}' >
+  <div class="row">
+    <div class="col-lg-7">
+      <h2 class="heading_project">{{ proj.name }}</h2>
+      <hr>
+      <h5> Награда: {{ proj.gift }} </h5>
+      <h5> Компания: {{ proj.company }} </h5>
+      <h5> Участников: {{ proj.member }} </h5>
+      <p class="lead clip text-justify">{{ proj.description}}</p>
+    </div>
+    <div class="col-lg-5 embed-responsive-16by9">
+        <video src="{{ url('static', filename=proj.video) }}" class="project_video" width=100% controls='controls'>
+    </div>
+  </div>
+</div>
+<hr class="betwen_projects">
+
+
+{% else %}
+<div class="container project_shadow zoom" id='id{{proj.id}}' >
+  <div class="row">
+    <div class="col-lg-5">
+      <h2 class="heading_project">{{ proj.name }}</h2>
+      <hr>
+      <h5> Награда: {{ proj.gift }} </h5>
+      <h5> Компания: {{ proj.company }} </h5>
+      <h5> Участников: {{ proj.member }} </h5>
+    </div>
+    <div class="col-lg-7">
+      <p class="lead text-justify"> {{ proj.description}} </p>
+    </div>
+  </div>
+</div>
+<hr class="betwen_projects">
+
+
+{% endif %}
+
+
+<script>
+
+  var proj = document.getElementById('id{{proj.id}}')
+
+  if (typeof proj !== 'undefined') {
+
+    proj.onclick = function open (){
+      window.location.assign("view?project_id={{proj.id}}")
+    }
+
+  }
+</script>
+
 </div>
 {% endfor %}
 
+<br>
 
 
 

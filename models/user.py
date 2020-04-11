@@ -40,7 +40,18 @@ class User:
         user = await db.fetchrow(
             users.select().where(users.c.email == email)
         )
-        return user
+        if user: 
+            
+            return user
+
+
+    @staticmethod
+    async def check_email(db, email):
+        user = db.fetchrow(
+            users.select().where(users.c.email == email)
+        )
+        if not user:
+            return user
 
     @staticmethod
     async def get_user_by_id(db, user_id):

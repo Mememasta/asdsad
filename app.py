@@ -7,8 +7,8 @@ import aiohttp_jinja2
 import jinja2
 import asyncpgsa
 
-import aioredis
 import aioreloader
+#import socketio
 import uvloop
 
 from aiohttp_session import setup, get_session
@@ -19,7 +19,12 @@ from config.common import BaseConfig
 
 from models.user import User
 
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+
+#sio = socketio.AsyncServer(async_mode='aiohttp')
+#app = ... 
+#sio.attach(app)
+
+
 parser = argparse.ArgumentParser(description='project')
 parser.add_argument('--host', help='Host to listen', default='0.0.0.0')
 parser.add_argument('--port', help='Port to accept connections', default=8080)
@@ -41,8 +46,7 @@ async def current_user_ctx_proccessor(request):
     return dict(current_user = user, is_anonym = is_anonym)
         
 async def init_app():
-    
-    app = web.Application(client_max_size=1024**5)
+    app = web.Application(debug=True, client_max_size=1024**5)
     secret_key = base64.urlsafe_b64decode(BaseConfig.secret_key)
     setup(app, EncryptedCookieStorage(secret_key))
 
@@ -78,10 +82,19 @@ async def on_shutdown(app):
     await app['db'].close()
 
 
+
+
+#@sio.on('message', namespace='/projects')
+#async def test_get(sid, message):
+#    await sio.emit('response', {'projects': 'Left room: ' + message['room']})
+
+
 def main():
     app = init_app()
     logging.basicConfig(level=logging.DEBUG)
     web.run_app(app, host=args.host, port=args.port)
 
 if __name__ == '__main__':
-    main()
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(main())

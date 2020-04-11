@@ -16,7 +16,8 @@ groups = Table(
     Column('id', Integer, primary_key=True),
     Column('name', VARCHAR(255)),
     Column('author_id', Integer),
-    Column('commander', Integer)
+    Column('commander', Integer),
+    Column('project_id', Integer)
 )
 
 class Group:

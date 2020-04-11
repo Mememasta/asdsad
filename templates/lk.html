@@ -2,32 +2,116 @@
 
 {% block content %}
 
-<h1> Hello, it's lk </h1>
+  <!-- Загаловок -->
+  <div class="card_heading">
+    <div class="container" style="margin-top: 25px">
+      <h1 class="heading_profile">Личный кабинет</h1>
+    </div>
+  </div>
 
-
-<div class="container">
-  <div class="row justify-content-md-center">
+  <!-- Карточка пользователя -->
+  <div class="card_user">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2> {{user.name}} {{user.secondname}} </h2>
+          <h3> Email: {{user.email}} </h3>
+          <h3> City: {{user.city}} </h3>
+          <h3> Occupation: {{user.occupation}} </h3>
+          <h3> Mobile: {{user.phone}} </h3>
+        </div>
+        {% if user.user_photo %}
+        <div class="col-md-4">
+          <img src="{{ url('static', filename=user.user_photo) }}" width="100%" class="card_user_photo" alt="...">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <br>
   
-<div class="card" style="width: 18rem;">
-  <img src="{{ url('static', filename=user.user_photo) }}" class="card-img-top" alt="...">
-  <div class="card-body">
-          <h5 class="card-title">{{user.name}} {{user.secondname}}</h5>
-    <p class="card-text">Какая-то информация</p>
+  <!--Статистика --> 
+  <div class="container">
+    <h1> Статистика </h1>
+    <p> Здесь будет какая-нибудь статиcтика, круто!</p>
+    <hr class="betwen_projects">
   </div>
-  <ul class="list-group list-group-flush">
-          <li class="list-group-item">Почта: {{user.email}}</li>
-          <li class="list-group-item">Город: {{user.city}}</li>
-          <li class="list-group-item">Телефон: {{user.phone}}</li>
-  </ul>
-  <div class="card-body">
-    <a href="myprojects" class="card-link">Мои проекты</a>
-    <a href="#" class="card-link">Настройки</a>
+  <br> 
+      
+  
+   <!-- Проекты, в которыз я участвую -->
+  {% if projects %}
+  <div class="container">
+    <h1>Проекты, в котрых я участвую </h1>
+    <p style="font-size:14px"> Если вы участвуете в команде, то решение должен отправлять ОДИН член команды </p>
+    <br>
+    <div class="row">
+      {% for project in projects %}
+      <div class="col-md-4">
+        <div class="card" style="width: 100%; margin-bottom: 8%; height: 90%;">
+          <div class="card-body">
+            <h4><a href="view?project_id={{project.id}}">{{ project.name }}</a></h4>
+            <p>Вы еще НЕ отправили решение</p>
+            <p> Окончание:{{ dt }}</p>
+            <div class="form-group">
+              <input type="file" class="form-control" name='presentation' id="inputPresentation" placeholder="Presentation" required>
+            </div>
+            <a href="#" class="glo"> 	Отправить решение </a>
+          </div>
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
+  <hr class="betwen_projects">
   </div>
-</div>
+  {% endif %}
+  <br>
+  
+  
 
+  <!-- Мои проекты -->
+  {% if project_that_user_created %}
+  <div class="container">
+    <h1> Мои проекты </h1>
+    <br>
+    <div class="row">
+    {% for proj in project_that_user_created %}
+      <div class="col-md-4">
+        <div class="card" style="width: 100%; margin-bottom: 8%">
+          <div class="card-body">
+            <h4 class="card-title">{{ proj.name }}</h4>
+            <p> Участников: {{ proj.member }} </p>
+            <p> Окончание: {{ dt }}</p>
+            <a href="#" class="glo">Управлять проектом</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  <hr class="betwen_projects">
+  </div>
+  {% endif %}
+  <br>
+ 
+  
+
+  <!-- Реклама -->
+	<div class="container">
+		<h1> Реклама </h1>
+		<div class="row">
+		  <div class="col-md-8">
+			 <h4> Услуги повара, работающего в ЛУвре, 236767326 call now </h4>
+		  </div>
+		  {% if user.user_photo %}
+		  <div class="col-md-4">
+			<img src="{{ url('static', filename=user.user_photo) }}"  height="50px" class="card-img-top" alt="...">
+		  </div>
+		  {% endif %}
+		</div>
+		<hr class="betwen_projects">
 	</div>
-</div>
-
+	<br>
 
 
 {% endblock %}

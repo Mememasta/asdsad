@@ -1,0 +1,72 @@
+#hello {
+  background-color: red;
+  border: 0px solid #000;
+}
+
+.fy {
+  text-align: center;
+}
+
+.test {
+  background-color: rgb(233, 47, 224);
+  text-align: center;
+  border: 5px solid red;
+}
+
+body {
+    background-color: #f0f4f9;
+}
+
+article, aside {
+  height: auto;
+  border: 10px solid red;
+  box-sizing: border-box;
+  float: left;
+  background-color: #f9afe7;
+  margin-bottom: 20px;
+}
+
+article {
+  width: 60%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+aside {
+  width: 25%;
+}
+
+#my_room {
+  margin-right: 5%;
+  text-align:right;
+
+}
+footer {
+  background: #afafaf;
+  width: 100%;
+  height: auto;
+  float: left;
+}
+
+.qwerty {
+  color: red;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.heading {
+  font-size: 64px;
+}
+
+.supercontainer {
+  height: auto;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 0px solid #000;
+  box-sizing: border-box;
+}
+
+.small_description {
+    font-size: 18px;
+}

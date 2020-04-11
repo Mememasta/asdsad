@@ -1,0 +1,483 @@
+body{
+  background: #f6faf5; 
+}
+
+
+/* Заголовки */
+.heading {
+  font-size: 64px;
+}
+
+.heading_profile {
+  font-size: 64px;
+}
+
+.heading_base {
+  font-weight: 10px;
+  font-size: 52px;
+}
+
+.heading_base_project {
+  font-weight: 150;
+  font-size: 48px;
+  color: #333333
+}
+
+.heading_project {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.base_cg{
+  color: #333333
+}
+
+@media (max-width:1200px){
+  .heading{
+    font-size: 64px;
+  }
+  .heading_profile{
+    font-size: 64px;
+  }
+  .heading_base_project {
+    font-size: 46px;
+  }
+}
+@media (max-width:992px){
+  .heading{
+    font-size: 56px;
+  }
+  .heading_profile {
+    font-size: 56px;
+  }
+  .heading_base_project {
+    font-size: 42px;
+  }
+}
+@media (max-width:767px){
+  .heading{
+    font-size: 52px;
+  }
+  .heading_profile{
+    font-size: 52px;
+  }
+  .heading_base_project {
+    font-size: 36px;
+  }
+}
+@media (max-width:450px){
+  .heading{
+    font-size: 52px;
+  }
+  .heading_profile{
+    font-size: 42px;
+  }
+  .heading_base_project {
+    font-size: 34px;
+    font-weight: 250;
+  }
+  .heading_base {
+    font-size: 44px;
+    font-weight: 350;
+  }
+  .base_cg{
+    font-size: 24px;
+    font-weight: 350;
+  }
+}
+@media (max-width:365px){
+  .heading{
+    font-size: 42px;
+  }
+  .heading_profile{
+    font-size: 36px;
+  }
+  .heading_base_project {
+    font-size: 32px;
+  }
+}
+
+
+
+/* Карточка проекта*/
+.project_shadow:hover {
+	border-radius: 8px;
+  box-shadow: 0 0 5px 5px rgba(221, 221, 221, 1);
+}
+
+p.clip {
+    white-space: pre; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+.project_video {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 8px;
+}
+
+.zoom {
+    padding: 0% 1% 0% 1%;
+    transition: transform .2s; /* Animation */
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    transform: scale(1.025);
+}
+
+
+
+/* Отступы на главной страние */
+.base_row {
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+.base_row_p {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+@media (max-width:992px){
+  .base_row {
+    margin-top: 30px;
+    margin-bottom: 60px;
+  }
+  .base_row_p {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+}
+@media (max-width:767px){
+  .base_row {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  .base_row_p {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+@media (max-width:450px){
+  .base_row {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .base_row_p {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+@media (max-width:365px){
+  .base_row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .base_row_p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+/* Super_container используется в view_project and about_site */
+.super_container {
+  height: auto;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 0px solid #000;
+  box-sizing: border-box;
+}
+
+
+
+/* Поле поиска в проекта */
+form {
+  position: relative;
+  width: 100%;
+
+}
+.d1 input {
+  width: 72%;
+  height: 42px;
+  padding-left: 10px;
+  border: 2px solid green;
+  border-radius: 5px;
+  outline: none;
+  color: #9E9C9C;
+  margin-right: 3%;
+}
+.d1 button {
+  position: absolute; 
+  top: 0;
+  right: 0;
+  width: 25%;
+  height: 42px;
+  border: 2px solid green;
+  border-radius: 5px;
+  background-color: #99ff99;
+  cursor: pointer;
+}
+
+
+
+/* Выбор темы проекта*/
+.sort_project {
+  position: relative; 
+  margin-left: 0;
+  width: 95%;
+  height: 42px;
+  border: 2px solid green;
+}
+@media (max-width:768px){
+  .sort_project {
+    width: 100%;
+  }
+}
+
+
+
+/*Линия меду проектами*/
+.betwen_projects{
+  border: none;
+  border-top: 1px solid #828282;
+}
+
+
+
+/* ПДФ в view_project */
+.pdf {}
+@media (max-width:769px){
+  .pdf {
+    display: none;
+  }
+}
+
+.pre {}
+@media (min-width:769px){
+  .pre {
+    display: none;
+  }
+}
+
+
+
+/* Единый стиль кнопок*/
+.button {
+  display: inline-block;
+  border-radius: 8px;
+  background-color: #dbdbdb;
+  border: 1px solid black;
+  color: #000;
+  text-align: center;
+  font-size: 18px;
+  padding: 0;
+  width: 120px;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 0;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.glo{
+  color: #00c6ff;
+  padding: 20px auto;
+  max-width: 100%;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 4px;
+  display: block;
+  background-image: linear-gradient(to left,transparent,transparent 50%,#00c6ff 50%,#00c6ff);
+  background-position: 100% 0;
+  background-size: 200% 100%;
+  transition: all .25s ease-in;
+  font: 400 20px tahoma;
+  border: 1px solid #00C6FF;
+}
+.glo:hover {
+  background-position: 0 0;
+  color:#fff;
+}
+
+
+
+/* Стили для ЛК */
+.card_heading {
+  background-color: ;
+}
+.card_user {
+  background-color: #e0ffff;
+}
+
+
+
+/* Стили для about */
+.about-block {
+  background: #dc143c;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding-top: 4%;
+  padding-bottom: 2%;
+}
+
+/* Описание краудсорсинга на страние О проекте*/
+@media (min-width:1300px){
+  p.about {
+    font-size: 24px;
+  }
+  .heading_about {
+    font-weight: 50;
+    font-size: 48px;
+  }
+}
+@media (max-width:1300px){
+  .p.about {
+    font-size: 16px;
+  }
+  .heading_about {
+    font-weight: 400;
+    font-size: 32px;
+  }
+}
+
+
+
+/* Стили для Главной*/
+.color_head {
+  color: #F5FFFA;
+}
+
+.hr-inclined-right{
+  margin: 25px 0 40px 0;
+	padding: 0;
+	height: 0;
+	border: none;
+	border-top: 1px solid #333;
+	transform:rotate(-2deg);
+}
+
+.block-skos {
+  background: #dc143c;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: -65px;
+}
+.block-skos:after {
+  background: inherit;
+  bottom: 0;
+  content: '';
+  display: block;
+  height: 50%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: skewY(-2deg);
+  transform-origin: 100%;
+  z-index: -1;
+}
+
+.block-skos2 {
+  background: #21c421;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding-top: 6%;
+  padding-bottom: 5%;
+}
+.block-skos2:before {
+  background: inherit;
+  bottom: 0;
+  content: '';
+  display: block;
+  height: 50%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: skewY(-2deg);
+  transform-origin: 100%;
+  z-index: -2;
+}
+
+.project_shadow_base:hover {
+	border-radius: 8px;
+  box-shadow: 0 0 5px 5px rgba(221, 221, 221, 1);
+}
+.zoom_base {
+    padding: 0% 1% 0% 1%;
+    transition: transform .2s; /* Animation */
+    margin: 0 auto;
+}
+@media (min-width:993px){
+  .zoom_base:hover {
+    transform: scale(1.1);
+  }
+}
+@media (max-width:992px){
+  .zoom_base:hover {
+    transform: scale(1.05);
+  }
+}
+@media (max-width:767px){
+  .zoom_base:hover {
+    transform: scale(1.025);
+  }
+}
+
+.block {
+  background-color: white;
+  z-index: 0;
+  padding-top: 1%;
+  position: relative;
+  height: 90%;
+}
+
+.block:after { 
+  
+  background: inherit;
+  bottom: 0%;
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: skewY(-2deg);
+  transform-origin: 100%;
+  z-index: -1;
+}

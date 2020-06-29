@@ -6,6 +6,7 @@ from sqlalchemy import (
         )
 from sqlalchemy.sql import select
 
+
 metadata = MetaData()
 
 users = Table(

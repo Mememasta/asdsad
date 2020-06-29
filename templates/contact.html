@@ -2,133 +2,32 @@
 
 {% block content %}
 
-<h1> Hello, it's contact </h1>
+<h1> Hello, it's contact test </h1>
 
 
-
-<div class="block1">
-<h1></h1>
-</div>
-
-<!-- Спонсировать, контакты -->
-<div class="container">
-  <div class="row">
-	<div class="col-md-5" >
-		<h1 align="right"> У нас </h1>
-		<h1 align="right"> Вы можете </h1>
-	</div>
-	<div class="col-md-7">
-		<div class="project_shadow zoom">
-		  <h1> Выложить проект </h1>
-		</div>
-		<div class="project_shadow zoom">
-		  <h1> Решать проекты</h1>
-		</div>
-	</div>
-  </div>
-</div>
-
-
-<br>
-<button class="button" style="vertical-align:middle"><span>Hover</span></button>
-
-
-<div class="container">
-	
-	<h2>Ваш проект будет допущен до сбора средств, если:</h2>
-	<p>1.Цель и условия Вашего проекта четко сформулированы и соответствуют правилам нашего сервиса;</p>
-	<p>2.reberbrebetnwenewnerberberbnjrnjgbreabhbbvwev</p>
-	<p>3.chureberberberberbrtenbetnwtnhcvwsnvwhbvhbwebvibweuivbipuwebvibweovpwe</p>
-	
-	<h2>Ваш проект будет допущен до сбора средств, если:</h2>
-	<p>1.Цель и условия Вашего проекта четко сформулированы и соответствуют правилам нашего сервиса;</p>
-	<p>2.reberbrebetnwenewnerberberbnjrnjgbreabhbbvwev</p>
-	<p>3.chureberberberberbrtenbetnwtnhcvwsnvwhbvhbwebvibweuivbipuwebvibweovpwe</p>
-</div>
-
-<div class="container">
-	
-	<div class="accordion" id="accordionExample">
-      	<h5 class="mb-0">
-          <button class="button" style="vertical-align:middle" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          	<span>Добавить проект</span>
-          </button>
-        </h5>
+<section class="se-container">
+    <div class="se-slope se-slope-black">
+        <article class="se-content">
+            <h1 class="heading_about base_cg" align="center"> Контакты </h1>
+	    <hr>
+	    <h3> Email: ourpostour@mail.ru</h3>
+	    <h3> Telegram: @maratloh</h3>
+        </article>
     </div>
-    <br>
-
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-		  
-		<form class="needs-validation" novalidate>
-			
-			<div class="form-group">
-				<label for="validationCustom01">Имя</label>
-			  <input type="text" class="form-control" id="validationCustom01" placeholder="Имя" required>
-			</div>
-			
-			<div class="form-group">	
-			  <label for="validationCustom02">Фамилия</label>
-			  <input type="text" class="form-control" id="validationCustom02" placeholder="Фамилия" required>
-			</div>
-			
-			<div class="form-group">
-			  <label for="validationCustom03">City</label>
-			  <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-			</div>
-			
-			<div class="form-group">
-			  <label for="validationCustom04">State</label>
-			  <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-			</div>
-			
-			<div class="form-group">
-			  <label for="validationCustom05">Zip</label>
-			  <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-			</div>
-
-
-		  <div class="form-group">
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-			  <label class="form-check-label" for="invalidCheck">
-				Agree to terms and conditions
-			  </label>
-			  <div class="invalid-feedback">
-				Я ознокомился и согласен со всеми условиями.
-			  </div>
-			</div>
-		  </div>
-		  
-		  <button class="butall" type="submit">Submit form</button>
-		</form>
-	
-	</div>
-	
-</div>
-
-
-<script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>
-
-
+    <div class="se-slope se-slope-pink">
+      <article class="se-content">
+            <h1 class="heading_about base_cg" align="center"> Спонсировать </h1>
+	    <hr>
+	    <h4> Помогай нам создавать! </h4> 
+	    <div class="d1">
+		    <form >
+			    <input  type="text" placeholder="Сумма пожертвования" aria-label="Search">
+			    <button type="submit">Спонс</button>
+		    </form>
+	    </div>
+        </article>
+    </div>
+</section>
 
 
 {% endblock %}

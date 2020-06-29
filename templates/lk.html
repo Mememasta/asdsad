@@ -16,9 +16,9 @@
         <div class="col-md-8">
           <h2> {{user.name}} {{user.secondname}} </h2>
           <h3> Email: {{user.email}} </h3>
-          <h3> City: {{user.city}} </h3>
-          <h3> Occupation: {{user.occupation}} </h3>
-          <h3> Mobile: {{user.phone}} </h3>
+          <h3> Город: {{user.city}} </h3>
+          <h3> Занятость: {{user.occupation}} </h3>
+          <h3> Телеон: {{user.phone}} </h3>
         </div>
         {% if user.user_photo %}
         <div class="col-md-4">
@@ -53,10 +53,17 @@
             <h4><a href="view?project_id={{project.id}}">{{ project.name }}</a></h4>
             <p>Вы еще НЕ отправили решение</p>
             <p> Окончание:{{ dt }}</p>
-            <div class="form-group">
-              <input type="file" class="form-control" name='presentation' id="inputPresentation" placeholder="Presentation" required>
-            </div>
-            <a href="#" class="glo"> 	Отправить решение </a>
+            {% if not project.answer %}
+            <form action="{{ url("send_answer") }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ project.id }}">
+                <div class="form-group">
+                        <input type="file" class="form-control" name='answer' id="inputPresentation" placeholder="Presentation" required>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Отправить решение" />
+            </form>
+	    {% else %}
+	    <h5>Вы отправили решение</h5>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -78,12 +85,12 @@
     <div class="row">
     {% for proj in project_that_user_created %}
       <div class="col-md-4">
-        <div class="card" style="width: 100%; margin-bottom: 8%">
+        <div class="card" style="width: 100%; margin-bottom: 8%; height: 90%;">
           <div class="card-body">
             <h4 class="card-title">{{ proj.name }}</h4>
             <p> Участников: {{ proj.member }} </p>
             <p> Окончание: {{ dt }}</p>
-            <a href="#" class="glo">Управлять проектом</a>
+            <a href="/view?project_id={{ proj.id }}" class="glo">Управлять проектом</a>
           </div>
         </div>
       </div>

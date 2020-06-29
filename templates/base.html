@@ -27,6 +27,7 @@
 <meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#563d7c">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <style>
       .bd-placeholder-img {
@@ -47,11 +48,66 @@
     <!-- Custom styles for this template -->
     <link href="../static/css/carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
 
 
   </head>
   <body>
-    <header>
+    <header class="header">
+      <div class="container">
+        <div class="header_body">
+          <a href="{{ url('index') }}" class="header_logo">
+            <img src="../static/img/logo.jpeg">
+          </a>
+          <div class="header_burger">
+            <span></span>
+          </div>
+          <nav class="header_menu">
+            <ul class="header_list">
+              <li>
+                <a href="{{ url('userprojects') }}" class="header_link">Проекты</a>
+              </li>
+              <li>
+                <a href="#" class="header_link">Итоги</a>
+              </li>
+              <li>
+                    <a class="header_link" href="{{ url('about') }}"> О проекте </a>
+            </li>
+              {% if current_user %}
+              <li>
+                <a href="{{ url('create_project') }}" class="header_link">Создать проект</a>
+              </li>
+              {% endif %}
+              {% if current_user %}
+              <li class="dropdown">
+                <a class="dropdown-toggle header_link header_profile" aria-labelledby="btnGroupDrop1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  {% if user.user_photo %}
+                  <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 100px;" width="20" height="20" >
+                                    {% endif %}
+                  {{user.name}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ url('profile') }}" style="font-size:18px">Профиль</a>
+                  <a class="dropdown-item" href="#" style="font-size:18px">Настройки</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ url('logout') }}" style="font-size:18px">Выход</a>
+                </div>
+              </li>
+              {% else %}
+                        <li>
+                                <a class="header_link" href="{{ url('login') }}"> Войти </a>
+                        </li>
+                        <li>
+                                <a class="header_link"href="{{ url('signup') }}"> Зарегистрировать </a>
+                        </li>
+                {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    
+    <!--<header>
       <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark shadow flex-md-nowrap">
               <a class="navbar-brand" href="{{ url('index') }}">Crow(d)</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,17 +116,17 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('userprojects') }}">Projects <span class="sr-only">(current)</span></a>
+                    <a class="nav-link link1" href="{{ url('userprojects') }}"> Проекты <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('about') }}">About</a>
+                    <a class="nav-link link1" href="{{ url('about') }}"> О проекте </a>
             </li>
             <li class="nav-item active">
-                    <a class="nav-link" href="#">Results</a>
+                    <a class="nav-link link1" href="#"> Итоги </a>
             </li>
             {% if current_user %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="create_project">Create project</a>
+                    <a class="nav-link link1" href="create_project"> Создать проект </a>
                 </li>
             {% endif %}
           </ul>
@@ -79,7 +135,7 @@
           <ul class = "navbar-nav ">
             {% if current_user %}
                   <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle link2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         {% if user.user_photo %}
                       <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 100px;" width="20" height="20" > 
@@ -87,24 +143,24 @@
                       {{user.name}}
                      </button>
                      <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="{{ url('profile') }}">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="{{ url('profile') }}"> Профиль </a>
+                        <a class="dropdown-item" href="#"> Настройки </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('logout') }}">Log out</a>
+                        <a class="dropdown-item" href="{{ url('logout') }}"> Выйти </a>
                      </div>
                    </div> 
             {% else %}
                     <li class="nav-item active">
-                            <a class="nav-link" href="{{ url('login') }}">Login</a>
+                            <a class="nav-link" href="{{ url('login') }}"> Войти </a>
                     </li>
                     <li class="nav-item active">
-                            <a class = "nav-link" href="{{ url('signup') }}">Sign up</a>
+                            <a class = "nav-link" href="{{ url('signup') }}"> Зарегистрировать </a>
                     </li>
             {% endif %}
           </ul>
         </div>
       </nav>
-    </header>
+    </header> -->
 
     {% block content %}
 
@@ -116,7 +172,14 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-                  <svg class="bd-placeholder-img" width="100%" height="100%" xlink:href="../static/svg/1.svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/1.jpeg" width="100%" height="100%"></svg>
+                  <!--svg class="bd-placeholder-img" width="100%" height="100%" xlink:href="../static/svg/1.svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/1.jpeg" width="100%" height="100%"></svg> -->
+
+                  <picture>
+                        <source srcset="/static/svg/1.webp 2x, /static/svg/1.webp 1x" media="(min-width: 300px)">
+                        <source srcset="/static/svg/1.webp 2x, /static/svg/1.webp 1x" media="(min-width: 565px)">
+                        <img src="/static/svg/1.jpg" alt="Flowers" width="100%" height="100%">
+                  </picture>
+
             <div class="container">
               {% if current_user %}
                 <div class="carousel-caption text-left">
@@ -134,7 +197,13 @@
             </div>
           </div>
           <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/2.jpeg" width="100%" height="100%"></svg>
+                  <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/2.jpeg" width="100%" height="100%"></svg> -->
+
+                  <picture>
+                        <source srcset="/static/svg/2.webp 2x, /static/svg/2.webp 1x" media="(min-width: 300px)">
+                        <source srcset="/static/svg/2.webp 2x, /static/svg/2.webp 1x" media="(min-width: 565px)">
+                        <img src="/static/svg/2.jpg" alt="Flowers" width="100%" height="100%">
+                  </picture>
             <div class="container">
               <div class="carousel-caption">
                 <h1 class="color_head">Создавай вместе с нами</h1>
@@ -192,8 +261,8 @@
         <div class=" container">
           <div class="row">
               <div class="col-md-4">
-                <h1 align="center" style="color: white; font-size:100px">&#9993;</h1>
-                <h5  align="center" style="color: white">Современное решение</h5>
+                <h1 align="center" style="color: white; font-size:100px">&#9998;</h1>
+                <h5  align="center" style="color: white">Находи современные решения</h5>
               </div>
               <div class="col-md-4">
                 <h1 align="center" style="color: white; font-size:100px">&#128274;</h1>
@@ -218,9 +287,10 @@
         
         <!-- projects -->
         {% for project in projects %}
-        <div class=" zoom_base" id='id{{project.id}}'>
+        <div class="container">
+        <div class="container zoom_base" id='id{{project.id}}'>
           
-          <div class="container">
+
             
             {% if project.video %}
             <div class="row base_row">
@@ -248,11 +318,8 @@
                 <p class="lead text-justify" style="color: #333333"> {{ project.description}} </p>
               </div>
             </div>
-
             {% endif %}
-            
-          </div>
-          
+
           <script>
             var proj = document.getElementById('id{{project.id}}')
 
@@ -266,11 +333,8 @@
           </script>
           
         </div>
-        
+        </div>
         <hr class="hr-inclined-right">
-        
-
-        
         {% endfor %}
         {% endif %}
         
@@ -279,20 +343,26 @@
     {% endblock %}
     
     
+  <script src="../static/js/nav.js" ></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="../static/js/jquery.slim.min.js"><\/script>')</script><script src="../static/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 
 
     <!-- FOOTER -->
-    <footer class="container d-none d-sm-block" style="display: block">
-      <div class="" >  
-      <p class="float-right"><a href="#">Back to top</a></p>
-      <p>&copy; 2020 NM Company, Inc. &middot; <a href="index.html#">Privacy</a> &middot; <a href="index.html#">Terms</a></p>
+    <footer class="d-none d-sm-block" style="display: block">
+      <div class="container" >  
+      <p class="float-right"><a href="#">Наверх</a></p>
+      <p>&copy; 2020 NM Company &middot; <a href="index.html#">Политика конфиденциальности</a> &middot; <a href="index.html#">Пользовательское соглашение</a></p>
+      <p>Соиальные сети: 
+      &middot; <a href="https://vk.com/russkikhnikita" title="Вконтакте" class="btn-social btn-social_vk">Вконтакте</a> 
+      &middot; <a href="https://instagram.com/russkikhnikita/" title="Инстаграм" class="btn-social btn-social_in">Инстаграм</a>
+      </p>
       </div>
     </footer>
 
 
     </body>
+    
     
 </html>
 

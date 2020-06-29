@@ -47,11 +47,8 @@ class Login(web.View):
         password = data['password']
         user = await User.get_user_by_email(self.app['db'], email)
 
-        if user.get('error'):
-            location = self.app.router['login'].url_for()
-            return web.HTTPFound(location=location)
 
-        if user['password'] == hashlib.sha256(password.encode('utf-8')).hexdigest():
+        if user and user['password'] == hashlib.sha256(password.encode('utf-8')).hexdigest():
             session['user'] = user['id']
 
             location = self.app.router['index'].url_for()
@@ -91,7 +88,6 @@ class Signup:
 
         if name and secondname and birthday and phone and occupation and city and password:
 
-
             if user_photo:
 
                 with open(os.path.join(BaseConfig.static_dir + '/photo/', user_photo.filename), 'wb') as f:
@@ -119,11 +115,13 @@ class Logout:
 
     async def get(self):
         session = await get_session(self)
+
         if 'user' in session:
             try:
                 del session['user']
             except:
                 pass
+
         location = self.app.router['index'].url_for()
 
         return web.HTTPFound(location = location)
@@ -139,17 +137,51 @@ class Profile:
         user = {}
         projects = {}
         project_that_user_created = {}
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id) 
             project_that_user_created = await Project.get_project_that_user_created(self.app['db'],user_id)
             projects = await Project.get_project_by_userid(self.app['db'], user_id) 
-        else:
 
+        else:
             location = self.app.router['index'].url_for()
 
             return web.HTTPFound(location = location)
-        return dict(config=config, user=user, projects = projects, project_that_user_created = project_that_user_created)
+
+        return dict(
+                config=config,
+                user=user,
+                projects = projects,
+                project_that_user_created = project_that_user_created
+                   )
+
+
+
+
+class SendAnswer:
+
+    async def post(self):
+        session = await get_session(self)
+        data = await self.post()
+        
+        if 'user' in session:
+            user_id = session['user']
+            projects_id = data['id']
+            answer = data['answer']
+
+            with open(os.path.join(BaseConfig.static_dir + '/answer/', answer.filename), 'wb') as f:
+                file = answer.file.read()
+                f.write(file)
+            
+            name = answer.filename
+            answer = f"/answer/{name}"
+
+            send_answer = await Project.create_answer(self.app['db'], user_id, int(projects_id), answer)
+
+        location = self.app.router['profile'].url_for()
+
+        return web.HTTPFound(location)
 
 
 class CreateProjects:
@@ -159,6 +191,7 @@ class CreateProjects:
         session = await get_session(self)
         config = self.app['config']
         user = {}
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id)
@@ -166,6 +199,7 @@ class CreateProjects:
             location = self.app.router['index'].url_for()
 
             return web.HTTPFound(location = location)
+
         return dict(config = config, user = user)
     
 
@@ -189,13 +223,11 @@ class CreateProjects:
         print(dt)
 
         if name and company and author_id and description and presentation and deadline and gift:
-
             with open(os.path.join(BaseConfig.static_dir + '/presentation/', presentation.filename), 'wb') as f:
                 file = presentation.file.read()
                 f.write(file)
 
             if video:
-
                 with open(os.path.join(BaseConfig.static_dir + '/video/', video.filename), 'wb') as f:
                     file = video.file.read()
                     f.write(file)
@@ -205,7 +237,6 @@ class CreateProjects:
                 result = await Project.create_project(self.app['db'], name, company, int(author_id), description, presentation, dt, member, gift, video)
 
             else:
-
                 presentation = '/presentation/{}'.format(presentation.filename)
                 video = ''
                 result = await Project.create_project(self.app['db'], name, company, int(author_id), description, presentation, dt, member, gift, video)
@@ -226,32 +257,52 @@ class ViewProject:
         user = {}
         project = {}
         user_in_project = {}
+        answers = {}
+        user_is_author = {}
+            
+
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id)
-            user_in_project = Project.user_in_project(self.app['db'], user_id, int(params['project_id']))
-        print("_______________________")
-        print(params)
-        print("___________________")
+            user_in_project = await Project.user_in_project(self.app['db'], user_id, int(params['project_id']))
+
+            user_is_author = await Project.user_is_author(self.app['db'], int(params["project_id"]), user_id) 
+
+            if user_is_author:
+                answers = await Project.get_all_answer(self.app['db'], int(params["project_id"]))
+
+
         project = await Project.get_project_by_id(self.app['db'], int(params['project_id']))
+
         if project['deadline']:
             dt = project['deadline']
-            dt = datetime.strftime(dt, '%m %B %Y')
-        return dict(user = user, project = project, dt=dt, user_in_project = user_in_project)
+            dt = datetime.strftime(dt, '%d %B %Y')
+
+        print(project)
+
+        return dict(user = user, project = project, dt=dt, user_in_project = user_in_project, user_is_author = user_is_author, answers = answers)
     
     async def post(self):
         data = await self.post()
         session = await get_session(self)
         
-     
-        user_id = data['user_id']
+        user_id = session['user']
         project_id = data['project_id']
         project = await Project.get_project_by_id(self.app['db'], int(project_id))
-        url = '/view?project_id={}'.format(project_id)
-        if 'user' in session:
-            member = int(project['member']) + 1
-            add_member = await Project.add_members(self.app['db'], member, int(project_id))
-            add_user_in_project = await Project.create_user_in_project(self.app['db'], int(user_id), int(project_id))
+        url = '/view?project_id={}'.format(project['id'])
+        user_in_project = await Project.user_in_project(self.app['db'], user_id, int(project['id']))
+        user_is_author = await Project.user_is_author(self.app['db'], int(project['id']), user_id)
+
+        if not user_is_author:
+        
+            if user_in_project and 'user' in session:
+                del_user_in_project = await Project.delete_user_in_project(self.app['db'], int(user_id), int(project['id']))
+
+            else:
+                add_user_in_project = await Project.create_user_in_project(self.app['db'], int(user_id), int(project['id']))
+        
+            new_member = await Project.add_members(self.app['db'], int(project_id))
 
         return web.HTTPFound(url)
         
@@ -264,24 +315,19 @@ class Projects:
         config = self.app['config']
         user = {}
         project = {}
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id)
+
         project = await Project.get_all_projects(self.app['db'])
+
         return dict(config=config, user=user, project = project)
 
 
-class ViewGroup:
 
-    @aiohttp_jinja2.template('view_group.html')
-    async def get(self):
-        session = await get_session(self)
-        user = {}
-        project = {}
-        if 'user' in session:
-            user_id = session['user']
-            user = await User.get_user_by_id(self.app['db'], user_id)
-        return dict(user=user)
+
+
 
 class WebSocket:
 
@@ -295,11 +341,12 @@ class About:
         session = await get_session(self)
         config = self.app['config']
         user = {}
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id)
-        return dict(config=config, user=user)
 
+        return dict(config=config, user=user)
 
 class Contacts:
 
@@ -308,8 +355,10 @@ class Contacts:
         session = await get_session(self)
         config = self.app['db']
         user = {}
+
         if 'user' in session:
             user_id = session['user']
             user = await User.get_user_by_id(self.app['db'], user_id)
+
         return dict(config=config, user=user)
 

@@ -1,7 +1,8 @@
 body{
-  background: #f6faf5; 
+  /*background: #f5f5f5; */
+  margin: 0%;
+  padding: 0%;
 }
-
 
 /* Заголовки */
 .heading {
@@ -103,6 +104,7 @@ body{
 .project_shadow:hover {
 	border-radius: 8px;
   box-shadow: 0 0 5px 5px rgba(221, 221, 221, 1);
+  background: #f9f9f9;
 }
 
 p.clip {
@@ -204,11 +206,12 @@ form {
   width: 72%;
   height: 42px;
   padding-left: 10px;
-  border: 2px solid green;
+  border: 2px solid #999999;
   border-radius: 5px;
   outline: none;
   color: #9E9C9C;
   margin-right: 3%;
+  
 }
 .d1 button {
   position: absolute; 
@@ -216,9 +219,9 @@ form {
   right: 0;
   width: 25%;
   height: 42px;
-  border: 2px solid green;
+  border: 2px solid #999999;
   border-radius: 5px;
-  background-color: #99ff99;
+  background-color: #e6e6e6;
   cursor: pointer;
 }
 
@@ -230,7 +233,7 @@ form {
   margin-left: 0;
   width: 95%;
   height: 42px;
-  border: 2px solid green;
+  border: 2px solid #999999;
 }
 @media (max-width:768px){
   .sort_project {
@@ -341,15 +344,14 @@ form {
 
 /* Стили для about */
 .about-block {
-  background: #dc143c;
+  background: white;
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  padding-top: 4%;
+  padding-top: 2%;
   padding-bottom: 2%;
 }
-
 /* Описание краудсорсинга на страние О проекте*/
 @media (min-width:1300px){
   p.about {
@@ -366,7 +368,7 @@ form {
   }
   .heading_about {
     font-weight: 400;
-    font-size: 32px;
+    font-size: 42px;
   }
 }
 
@@ -378,7 +380,7 @@ form {
 }
 
 .hr-inclined-right{
-  margin: 25px 0 40px 0;
+  margin: 25px 0 80px 0;
 	padding: 0;
 	height: 0;
 	border: none;
@@ -389,7 +391,7 @@ form {
 .block-skos {
   background: #dc143c;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 100%;
   padding-top: 2%;
@@ -434,10 +436,7 @@ form {
   z-index: -2;
 }
 
-.project_shadow_base:hover {
-	border-radius: 8px;
-  box-shadow: 0 0 5px 5px rgba(221, 221, 221, 1);
-}
+
 .zoom_base {
     padding: 0% 1% 0% 1%;
     transition: transform .2s; /* Animation */
@@ -460,11 +459,11 @@ form {
 }
 
 .block {
-  background-color: white;
   z-index: 0;
   padding-top: 1%;
   position: relative;
   height: 90%;
+  width:100%;
 }
 
 .block:after { 
@@ -480,4 +479,104 @@ form {
   transform: skewY(-2deg);
   transform-origin: 100%;
   z-index: -1;
+}
+
+
+
+/* Стили О ПРОЕКТЕ */
+.se-container {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.se-slope{
+    width: 50%;
+    height: 300px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+}
+
+.se-slope .se-content{
+    margin: 50px 100px 0px 100px;
+}
+
+.se-slope-black{
+    background: #79edfc;
+}
+.se-slope-pink{
+    background: #fa6c98;
+}
+
+.se-slope-black:nth-child(odd):after,
+.se-slope-black:nth-child(even):after{
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 0px;
+    width: 0px;
+    height: 0px;
+    border-top: 150px solid transparent;
+    border-bottom: 150px solid transparent;
+}
+.se-slope-black:nth-child(odd):after{
+    border-right: 60px solid #fa6c98;
+    right: 0px;
+}
+.se-slope-black:nth-child(even):after{
+    border-left: 60px solid #fa6c98;
+    left: 0px;
+}
+
+
+
+/* ИСправленный Navbar бутстрапа */
+.link1{
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link2{
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+
+
+/* Таблиы */
+.table_score{
+
+}
+.table_th {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid grey;
+  padding: 8px 8px 8px 8px;
+}
+.table_td {
+  font-size: 14px;
+  border: 1px solid grey;
+  padding: 8px 8px 8px 8px;
+}
+@media (max-width: 600px){
+  .table_score{}
+  .table_th{
+    padding: 5px 5px 5px 5px;
+   }
+  .table_td{
+    padding: 5px 5px 5px 5px;
+   }
+}
+
+
+
+/*FOOTRER*/
+footer {
+background: ;
+width: 100%;
 }

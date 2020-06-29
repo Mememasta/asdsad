@@ -1,4 +1,4 @@
-from handlers.base import Index, Login, Signup, Logout, Profile, Projects, About, Contacts, CreateProjects, ViewProject, ViewGroup, WebSocket
+from handlers.base import Index, Login, Signup, Logout, Profile, Projects, About, Contacts, CreateProjects, ViewProject, WebSocket, SendAnswer
 
 from config.common import BaseConfig
 
@@ -18,9 +18,9 @@ def setup_routes(app):
     app.router.add_post('/create_project', CreateProjects.post)
     app.router.add_get('/view', ViewProject.get, name='viewproject')
     app.router.add_post('/view', ViewProject.post)
-    app.router.add_get('/view_group', ViewGroup.get, name='view_group')
     app.router.add_get('/about', About.get, name='about')
     app.router.add_get('/contacts', Contacts.get, name='contacts')
+    app.router.add_post('/send_answer', SendAnswer.post, name='send_answer')
 
     app.router.add_get('/api/get_user', get_user, name='get_user')
     app.router.add_post('/api/get_project', get_project_by_id, name='get_project_by_id')

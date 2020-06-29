@@ -1,4 +1,4 @@
-
+DROP TABLE groups_user, answer_user, projects_user, projects, groups, users;
 
 create table users (
         id serial primary key,
@@ -35,7 +35,7 @@ create table projects (
         author_id integer references users(id) not null,
         description text not null,
         presentation VARCHAR(255),
-        deadline timestamptz
+        deadline timestamptz,
         member Integer,
         gift text not null,
         video VARCHAR(255)
@@ -45,6 +45,12 @@ create table projects_user (
         user_id integer references users(id),
         project_id integer references projects(id)
 
+);
+
+create table answer_user (
+        user_id integer references users(id),
+        projects_id integer references projects(id),
+        answer VARCHAR(2048) not null
 );
 
 create table groups_user (

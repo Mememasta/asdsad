@@ -3,6 +3,49 @@
 
 {% block content %}
 
+    <!-- Это видно только для создателя проекта -->
+    {% if project.author_id == user.id %}
+    <div>
+      
+      <div class="container" align="center" style="margin-top:25px">
+
+        <h3> Решения: </h3>
+        <p style="font-style: italic">Введите баллы/призы в колонке и они сохранятся автоматически</p>
+        <table class="table_score">
+          <tr>
+            <th class="table_th">№ </th>
+            <th class="table_th">Участник</th>
+            <th class="table_th">Баллы</th>
+            <th class="table_th">Приз</th>
+            <th class="table_th">Решение</th>
+          </tr>
+          {% if answers %}
+          {% for answer in answers %}
+          <tr>
+            <td class="table_td"> -- </td>
+            <td class="table_td"> {{ answer.answer }} </td>
+            <td class="table_td">-----</td>
+            <td class="table_td">-----</td>
+            <td class="table_td"><a href="{{ url('static', filename=project.presentation) }}" title="Посмотреть решение" class="btn-social btn-social_in">Посмотреть</a></td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </table>
+        
+        <br>
+        <br>
+        <br>
+        <div align="right">
+          <h5>Если вы оценили ВСЕ проекты и хотите выложить результаты, нажмите</h5>
+          <input type="submit" class="btn btn-primary" value="Выложить результаты" />
+        </div>
+        
+      </div>
+      <hr style="margin-botton:25px">
+        
+    </div>
+    {% endif %}
+
 
 
     <!-- Заголовок название проекта-->
@@ -22,21 +65,22 @@
           <h2> Приз: {{ project.gift  }} </h2>
           <hr>
           <h3> Компания: {{ project.company }} </h3>
+          <h3> Автор: {{ project.name }} </h3>
           <h3> Участников: {{ project.member }} </h3>
           <h4> Окончание конкурса: {{ dt }} </h4>
           <!-- Кнопка участвовать -->
-          {% if current_user %}
+          {% if current_user and not user_is_author %}
              {% if user_in_project %}   
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
                 </form>
              {% else %}
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
                 </form>
              {% endif %}   
           {% endif %}
@@ -58,6 +102,8 @@
           <h2>Приз: {{ project.gift }}</h2>
           <hr>
           <h3> Компания: {{ project.company }} </h3>
+
+          <h3> Автор: {{ project.name }} </h3>
           <h3> Участников: {{ project.member }} </h3>
           <h4> Окончание конкурса: {{ dt }} </h4>
         </div>
@@ -65,18 +111,19 @@
           <p class="lead text-justify"> {{ project.description  }} </p>
           <!-- Кнопка участвовать -->
 
-          {% if current_user %}
+          {% if current_user and not user_is_author %}
+
              {% if user_in_project %}   
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
                 </form>
              {% else %}
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
                 </form>
              {% endif %}   
           {% endif %}

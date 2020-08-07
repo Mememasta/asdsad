@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+
+    {% block title %}
     <title> Главная </title>
+    {% endblock %}
 
     <link rel="canonical" href="index.html">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -17,38 +20,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="../img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="../img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="../img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="../img/favicons/manifest.json">
-<link rel="mask-icon" href="../img/favicons/safari-pinned-tab.svg" color="#563d7c">
-<link rel="icon" href="../img/favicons/favicon.ico">
-<meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
-<meta name="theme-color" content="#563d7c">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
     <!-- Custom styles for this template -->
-    <link href="../static/css/carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/view_project.css">
 
 
   </head>
@@ -70,9 +49,6 @@
               <li>
                 <a href="#" class="header_link">Итоги</a>
               </li>
-              <li>
-                    <a class="header_link" href="{{ url('about') }}"> О проекте </a>
-            </li>
               {% if current_user %}
               <li>
                 <a href="{{ url('create_project') }}" class="header_link">Создать проект</a>
@@ -80,10 +56,10 @@
               {% endif %}
               {% if current_user %}
               <li class="dropdown">
-                <a class="dropdown-toggle header_link header_profile" aria-labelledby="btnGroupDrop1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle  header_profile" aria-labelledby="btnGroupDrop1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   {% if user.user_photo %}
                   <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 100px;" width="20" height="20" >
-                                    {% endif %}
+                  {% endif %}
                   {{user.name}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -94,275 +70,151 @@
                 </div>
               </li>
               {% else %}
-                        <li>
-                                <a class="header_link" href="{{ url('login') }}"> Войти </a>
-                        </li>
-                        <li>
-                                <a class="header_link"href="{{ url('signup') }}"> Зарегистрировать </a>
-                        </li>
+              <li>
+                <a class="header_link" href="{{ url('login') }}"> Войти </a>
+              </li>
+              <li>
+                <a class="header_link"href="{{ url('signup') }}"> Регистрация </a>
+              </li>
                 {% endif %}
             </ul>
           </nav>
         </div>
       </div>
     </header>
-    
-    <!--<header>
-      <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark shadow flex-md-nowrap">
-              <a class="navbar-brand" href="{{ url('index') }}">Crow(d)</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                    <a class="nav-link link1" href="{{ url('userprojects') }}"> Проекты <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                    <a class="nav-link link1" href="{{ url('about') }}"> О проекте </a>
-            </li>
-            <li class="nav-item active">
-                    <a class="nav-link link1" href="#"> Итоги </a>
-            </li>
-            {% if current_user %}
-                <li class="nav-item active">
-                    <a class="nav-link link1" href="create_project"> Создать проект </a>
-                </li>
-            {% endif %}
-          </ul>
-          {% block navbar %}
-          {% endblock %}
-          <ul class = "navbar-nav ">
-            {% if current_user %}
-                  <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle link2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                        {% if user.user_photo %}
-                      <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 100px;" width="20" height="20" > 
-                      {% endif %}
-                      {{user.name}}
-                     </button>
-                     <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="{{ url('profile') }}"> Профиль </a>
-                        <a class="dropdown-item" href="#"> Настройки </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('logout') }}"> Выйти </a>
-                     </div>
-                   </div> 
-            {% else %}
-                    <li class="nav-item active">
-                            <a class="nav-link" href="{{ url('login') }}"> Войти </a>
-                    </li>
-                    <li class="nav-item active">
-                            <a class = "nav-link" href="{{ url('signup') }}"> Зарегистрировать </a>
-                    </li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-    </header> -->
 
     {% block content %}
-
-      <div id="myCarousel" class="carousel slide" data-ride="carousel" >
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-                  <!--svg class="bd-placeholder-img" width="100%" height="100%" xlink:href="../static/svg/1.svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/1.jpeg" width="100%" height="100%"></svg> -->
-
-                  <picture>
-                        <source srcset="/static/svg/1.webp 2x, /static/svg/1.webp 1x" media="(min-width: 300px)">
-                        <source srcset="/static/svg/1.webp 2x, /static/svg/1.webp 1x" media="(min-width: 565px)">
-                        <img src="/static/svg/1.jpg" alt="Flowers" width="100%" height="100%">
-                  </picture>
-
-            <div class="container">
-              {% if current_user %}
-                <div class="carousel-caption text-left">
-                  <h1 class="color_head">Узнай итоги конкурсов</h1>
-                  <p class="color_head">Также вы можете посмотреть проекты, которые были опубликованы раньше</p>
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Итоги</a></p>
-                </div>
-              {% else %}
-                <div class="carousel-caption text-left">
-                  <h1 class="color_head">Помогай миру двигаться вперед</h1>
-                  <p class="color_head">Миру нужны креативные люди, присоединяйся и делай мир лучше</p>
-                  <p><a class="btn btn-lg btn-primary" href="{{ url('signup') }}" role="button">Зарегистрироваться</a></p>
-                </div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="carousel-item">
-                  <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/2.jpeg" width="100%" height="100%"></svg> -->
-
-                  <picture>
-                        <source srcset="/static/svg/2.webp 2x, /static/svg/2.webp 1x" media="(min-width: 300px)">
-                        <source srcset="/static/svg/2.webp 2x, /static/svg/2.webp 1x" media="(min-width: 565px)">
-                        <img src="/static/svg/2.jpg" alt="Flowers" width="100%" height="100%">
-                  </picture>
-            <div class="container">
-              <div class="carousel-caption">
-                <h1 class="color_head">Создавай вместе с нами</h1>
-                <p class="color_head">Получай новые решения в обмен на вознаграждения</p>
-                {% if current_user %}
-                  <p><a class="btn btn-lg btn-primary" href="create_project" role="button">Создать проект</a></p>
-                {% else %}
-                  <p><a class="btn btn-lg btn-primary" href="signup" role="button">Создать проект</a></p>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><img src="../static/svg/3.png" width="100%" height="100%"></svg>
-            <div class="container">
-              <div class="carousel-caption text-right">
-                <h1 class="color_head">Начни решать уже сейчас</h1>
-                <p class="color_head">Тысячи компаний ежедневно сталкиваются с различными проблемами, помогай им решать их за вознагражденния</p>
-                <p><a class="btn btn-lg btn-primary" href="{{ url('userprojects') }}" role="button">Проекты</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
       
-           
-      <!-- О проекте -->
-      <div  class="block-skos">
-        <div class="container" >
-          <h1 class="heading_base base_row" align="center" style="color: white">О проекте</h1>
-          <div class="row">
-            <div class="col-lg-6">
-              <h2 class="heading_base_project" style="color: white">Краудсорсинг</h2>
-              <hr style="background-color: white">
-              <p class="lead text-justify" style="color: white">Краудсорсинг - это привлечение к решению тех или иных проблем инновационной производственной деятельности широкого круга лиц для использования их творческих способностей, знаний и опыта по типу субподрядной работы с применением инфокоммуникационных технологий. </p>
-            </div>
-            <div class="col-lg-6">
-              <video src="video/IMG_1264.mov" class="project_video" width="100%" controls></video>
-            </div>
-          </div>
-        </div>
-        <br>
+    <!--Вступительный блок-->
+    <div class="first_blocks">
+      <div class="first_block_1">
+        <img src="../static/img/logo.jpg" class="first_block_crow" width="100%">
+        <button class="add_project">
+          Добавить проект
+        </button>
       </div>
-
-      
-      <div class="block-skos2 ">
-        <div class=" container">
-          <div class="row">
-              <div class="col-md-4">
-                <h1 align="center" style="color: white; font-size:100px">&#9998;</h1>
-                <h5  align="center" style="color: white">Находи современные решения</h5>
-              </div>
-              <div class="col-md-4">
-                <h1 align="center" style="color: white; font-size:100px">&#128274;</h1>
-                <h5 align="center" style="color: white">Современная защита</h5>
-              </div>
-              <div class="col-md-4">
-                <h1 align="center" style="color: white; font-size:100px">&#128505;</h1>
-                <h5  align="center" style="color: white">Современное решение</h5>
-              </div>
+      <div class="first_block_2">
+        <div class="two_with_photo">
+          <div class="two_first">
+            <h1 class="header_first_block_2"> 
+              Помогай <br>
+              миру <br>
+              лететь <br>
+              вперед            
+            </h1>
+          </div>
+          <div class="two_second">
+            <img src="../static/img/W9Xs.gif" class="first_block_planet" width="100%">
+          </div>
+          <div class="block_text_first_block_2">
+            <hr class="hr_first">
+            <p class="text_first_block_2">
+              миру нужны креативные люди, <br>
+              присоединяйся и делай его лучше
+            </p>
           </div>
         </div>
       </div>
-      
-      
-      <!-- Лучшие проекты -->
-      <div class="block" >
-        
-        {% if projects %}
-        <div class="container">
-          <h1 class="heading_base base_row_p" align="center" style="color: #333333">Лучшие проекты</h1>
-        </div>
-        
-        <!-- projects -->
-        {% for project in projects %}
-        <div class="container">
-        <div class="container zoom_base" id='id{{project.id}}'>
-          
+    </div>
 
-            
-            {% if project.video %}
-            <div class="row base_row">
-              <div class="col-lg-7">
-                <h2 class="heading_base_project">{{ project.name }}</h2>
-                <hr>
-                <h3 class="base_cg"> Компания - {{ project.company }}</h3>
-                <h3 class="base_cg"> Награда - {{ project.gift }}</h3>
-                <p class="lead text-justify clip" style="color: #333333">{{ project.description }}</p>
-              </div>
-              <div class="col-lg-5">
-                <video src="{{ url('static', filename=project.video) }}" class="project_video" width=100% controls='controls'>
-              </div>
-            </div>
-                    
-            {% else %}
-            <div class="row base_row">
-              <div class="col-lg-7">
-                <h2 class="heading_base_project" > {{ project.name }} </h2>
-                <hr>
-                <h3 class="base_cg"> Компания - {{ project.company }} </h3>
-                <h3 class="base_cg"> Награда - {{ project.gift }} </h3>
-              </div>
-              <div class="col-lg-5">
-                <p class="lead text-justify" style="color: #333333"> {{ project.description}} </p>
-              </div>
-            </div>
-            {% endif %}
-
-          <script>
-            var proj = document.getElementById('id{{project.id}}')
-
-            if (typeof proj !== 'undefined') {
-
-              proj.onclick = function open (){
-                window.location.assign("view?project_id={{project.id}}")
-              }
-
-            }
-          </script>
-          
-        </div>
-        </div>
-        <hr class="hr-inclined-right">
-        {% endfor %}
-        {% endif %}
-        
+    <!--Блок о проекте-->
+    <div  class="second_blocks">
+      <div class="second_block_1">
+        <h1 class="heading_second_block_1"> <span class="underline_ani">Краудсорсинг</span> </h1>
+        <p class="text_second_block_1">
+          - это <span class="green">привлечение к решению</span> <br>
+          тех или иных <span class="green">проблем</span> <br>
+          инновационной <br>
+          производственной <br>
+          деятельности широкого круга <br>
+          лиц для использования их <br>
+          творческих способностей, <br>
+          знаний и опыта <br>
+          по типу субподрядной работы <br>
+          <span class="green">с применением <br>
+          инфокоммункационных <br>
+          технологий.</span>
+        </p>
       </div>
+      <div class="second_block_2">
+        <video src="../static/img/d3486aff-5f00-40fe-b717-576dfb90f79b.mp4" class="second_block_video" controls></video> 
+      </div>
+    </div>
+
+    
+    <!--Лучшие проекты-->
+    {% if projects %}
+    <div class="third_block">
+      <h1 class="heading_third_block"> <span class="underline_best_project">Лучшие проеткы </span></h1>
+      {% for project in projects %}
+      {% if project.video %}
+      <div class="third_block_1 zoom" id='id{{project.id}}'>
+        <h1 class="heading_name_1"> {{ project.name }} </h1>
+        <hr>
+        <video src="{{ url('static', filename=project.video) }}" class="" controls></video> 
+        <h4> Награда: {{ project.gift }}</h4>
+        <p class="size"> {{ project.description }}</p>
+      </div>
+      {% else %}
+      <div class="third_block_1 zoom"  id='id{{project.id}}'>
+        <h1 class="heading_name_1"> {{ project.name }} </h1>
+        <hr>
+        <h4> Награда: {{ project.gift }}</h4>
+        <h4> Компания: {{ project.company }} </h4>
+        <h4> Окончание: %%%%%</h4>
+        <p style="text-align:justify;"> {{ project.description }} </p>
+      </div>
+
+      <script>
+        var proj = document.getElementById('id{{project.id}}')
+
+        if (typeof proj !== 'undefined') {
+
+          proj.onclick = function open (){
+            window.location.assign("view?project_id={{project.id}}")
+          }
+
+        }
+      </script>
+
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
 
     {% endblock %}
-    
-    
+
+
   <script src="../static/js/nav.js" ></script>
+  <script src="../static/js/modal.js" ></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="../static/js/jquery.slim.min.js"><\/script>')</script><script src="../static/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 
 
     <!-- FOOTER -->
-    <footer class="d-none d-sm-block" style="display: block">
-      <div class="container" >  
-      <p class="float-right"><a href="#">Наверх</a></p>
-      <p>&copy; 2020 NM Company &middot; <a href="index.html#">Политика конфиденциальности</a> &middot; <a href="index.html#">Пользовательское соглашение</a></p>
-      <p>Соиальные сети: 
-      &middot; <a href="https://vk.com/russkikhnikita" title="Вконтакте" class="btn-social btn-social_vk">Вконтакте</a> 
-      &middot; <a href="https://instagram.com/russkikhnikita/" title="Инстаграм" class="btn-social btn-social_in">Инстаграм</a>
-      </p>
+    <footer class="fourth_block"> 
+      <div class="fourth_block_1">
+        <h3 class="heading_fourth_block"> <span class="line_1">Контакты</span> </h3>
+        <h6>E-mail : himarat@gmail.com</h4>
+        <h6>Telegram : @crow_message</h6>
+      </div>
+      <div class="fourth_block_1">
+        <h3 class="heading_fourth_block"> <span class="line_1">Спонсировать</span> </h3>
+        <h6>Помогай нам развиваться!</h6>
+        <h3><span class="money">Помочь!</span></h3>
+      </div>
+      <div class="fourth_block_1">
+        <h3 class="heading_fourth_block"> <span class="line_1">&copy; 2020 </span> </h3>
+        <h6><a href="#" class="money" style="color:black">Политика конфиденциальности</a></h6>
+        <h6><a href="#" class="money"  style="color:black">Пользовательское соглашение</a></h6>
       </div>
     </footer>
+    
 
 
     </body>
-    
-    
-</html>
 
+
+</html>

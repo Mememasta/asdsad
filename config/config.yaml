@@ -1,3 +1,0 @@
-site_name: "CR Site"
-
-database_url: postgresql://localhost:5432/cr_db?user=morat&password=0912

@@ -6,46 +6,83 @@
     <!-- Это видно только для создателя проекта -->
     {% if project.author_id == user.id %}
     <div>
-      
       <div class="container" align="center" style="margin-top:25px">
 
         <h3> Решения: </h3>
+
         <p style="font-style: italic">Введите баллы/призы в колонке и они сохранятся автоматически</p>
-        <table class="table_score">
-          <tr>
-            <th class="table_th">№ </th>
-            <th class="table_th">Участник</th>
-            <th class="table_th">Баллы</th>
-            <th class="table_th">Приз</th>
-            <th class="table_th">Решение</th>
-          </tr>
-          {% if answers %}
-          {% for answer in answers %}
-          <tr>
-            <td class="table_td"> -- </td>
-            <td class="table_td"> {{ answer.answer }} </td>
-            <td class="table_td">-----</td>
-            <td class="table_td">-----</td>
-            <td class="table_td"><a href="{{ url('static', filename=project.presentation) }}" title="Посмотреть решение" class="btn-social btn-social_in">Посмотреть</a></td>
-          </tr>
-          {% endfor %}
-          {% endif %}
-        </table>
-        
-        <br>
-        <br>
-        <br>
-        <div align="right">
-          <h5>Если вы оценили ВСЕ проекты и хотите выложить результаты, нажмите</h5>
-          <input type="submit" class="btn btn-primary" value="Выложить результаты" />
+        <div id='table'>
+          <table  class="table_score">
+            <tr>
+              <th class="table_th"> № </th>
+              <th class="table_th"> Участник </th>
+              <th class="table_th"> Баллы </th>
+              <th class="table_th"> Приз </th>
+              <th class="table_th"> Решение </th>
+              <th class="table_th"> Добавить/Изменить </th>
+            </tr>
+            {% if answers and results %}
+              {% for answer in answers %}
+                {% for result in results %}
+                  {% if answer.answer_id == result.answer_id %}
+                    <form action="" method=post>
+                      <tr>
+                        <td class="table_td"> {{ result.result_id }} </td>
+                        <td class="table_td">{{ answer.name }} {{answer.secondname }} </td>
+                        <td class="table_td"> <input type=number value="{{ result.score }}"> </td>
+                        <td class="table_td"> <input type=text value="{{ result.gift }}"> </td>
+                        <td class="table_td"><a href="{{ url('static', filename=answer.answer) }}" title="Посмотреть решение" class="btn-social btn-social_in">Посмотреть</a></td>
+                        <td class="table_td"> <input type="submit" class="btn btn-primary" value="Изменить" /> </td>
+                      </tr>
+                    </form>
+                  {% else %}
+                    <form action="" method=post>
+                      <tr>
+                        <td class="table_td"> - </td>
+                        <td class="table_td">{{ answer.name }} {{answer.secondname }} </td>
+                        <td class="table_td"> <input type=number value=""> </td>
+                        <td class="table_td"> <input type=text value=""> </td>
+                        <td class="table_td"><a href="{{ url('static', filename=answer.answer) }}" title="Посмотреть решение" class="btn-social btn-social_in">Посмотреть</a></td>
+                        <td class="table_td"> <input type="submit" class="btn btn-primary" value="Добавить" /> </td>
+                      </tr>
+                    </form>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            {% endif %}
+          </table>
         </div>
-        
+
+        <script type="text/javascript">
+
+          //дожидаемся полной загрузки страницы
+          window.onload = function () {
+            //ищем элемент по селектору
+            var a = document.querySelector('#table');
+            //вешаем на него события
+            a.onmouseout = function(e) {
+              $('#submit').trigger('click');
+            }
+          }
+
+        </script>
+
+        <br>
+        <br>
+        <br>
+        <form action="{{ url('send_results') }}" method=post>
+          <div align="right">
+            <h5>Если вы оценили ВСЕ проекты и хотите выложить результаты, нажмите</h5>
+            <input type=text name="project_id" hidden value="{{ project.id }}">
+            <input type="submit" class="btn btn-primary" value="Выложить результаты" />
+          </div>
+        </form>
+
       </div>
       <hr style="margin-botton:25px">
-        
+
     </div>
     {% endif %}
-
 
 
     <!-- Заголовок название проекта-->
@@ -53,7 +90,7 @@
       <h1 align="center">{{project.name}}</h1>
     </div>
     <br>
-    
+
     {% if project.video %}
     <!-- Видео и основная инфа -->
     <div class="super_container">
@@ -65,36 +102,35 @@
           <h2> Приз: {{ project.gift  }} </h2>
           <hr>
           <h3> Компания: {{ project.company }} </h3>
-          <h3> Автор: {{ project.name }} </h3>
+          <h3> Автор: {{ author_name.name }} {{ author_name.secondname }}</h3>
           <h3> Участников: {{ project.member }} </h3>
           <h4> Окончание конкурса: {{ dt }} </h4>
           <!-- Кнопка участвовать -->
           {% if current_user and not user_is_author %}
-             {% if user_in_project %}   
+             {% if user_in_project %}
                 <form action="/view" method=post >
-                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
-                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                  <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                  <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                  <input type="submit" class="btn btn-primary" value="Покинуть проект" />
                 </form>
              {% else %}
                 <form action="/view" method=post >
-                        <input type="text" name="project_id" hidden value="{{ project.id  }}">
-                        <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                  <input type="text" name="project_id" hidden value="{{ project.id  }}">
+                  <input type="text" name="user_id" hidden value="{{ user.id  }}">
+                  <input type="submit" class="btn btn-primary" value="Участвовать" />
                 </form>
-             {% endif %}   
+             {% endif %}
           {% endif %}
         </div>
       </div>
     </div>
     <br>
-    
+
     <div class="container">
       <p class="lead text-justify"> Описание проекта: {{ project.description  }} </p>
     </div>
     <br>
-    <br>
-    
+
     {% else %}
     <div class="super_container">
       <div class="row">
@@ -103,7 +139,7 @@
           <hr>
           <h3> Компания: {{ project.company }} </h3>
 
-          <h3> Автор: {{ project.name }} </h3>
+          <h3> Автор: {{ author_name.name }} {{ author_name.secondname }}</h3>
           <h3> Участников: {{ project.member }} </h3>
           <h4> Окончание конкурса: {{ dt }} </h4>
         </div>
@@ -113,25 +149,25 @@
 
           {% if current_user and not user_is_author %}
 
-             {% if user_in_project %}   
+             {% if user_in_project %}
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Покинуть проект" /> 
+                        <input type="submit" class="btn btn-primary" value="Покинуть проект" />
                 </form>
              {% else %}
                 <form action="/view" method=post >
                         <input type="text" name="project_id" hidden value="{{ project.id  }}">
                         <input type="text" name="user_id" hidden value="{{ user.id  }}">
-                        <input type="submit" class="btn btn-primary" value="Участвовать" /> 
+                        <input type="submit" class="btn btn-primary" value="Участвовать" />
                 </form>
-             {% endif %}   
+             {% endif %}
           {% endif %}
         </div>
       </div>
     </div>
     <br>
-    
+
     {% endif %}
 
     <!-- Презентация -->
@@ -142,7 +178,140 @@
     <br>
 
 
+    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Оцениваем проект -->
+<div class="rating">
+  <h3> Решения: </h3>
+  <p style="font-style: italic; font-size: 20px;">Введите баллы/призы в колонке и они сохранятся автоматически</p>
+  <table>
+      <thead>
+          <tr>
+          <td> № </td>
+          <td> Участник </td>
+          <td class="phone_display"> Баллы </td>
+          <td class="phone_display"> Приз </td>
+          <td> Решение </td>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+          <td> - </td>
+          <td> Андрей Вадимов </td>
+          <td class="input phone_display"> - </td>
+          <td class="input phone_display"> - </td>
+          <td> Презентация </td>
+          </tr>
+          <tr>
+          <td> 1 </td>
+          <td> Никита Русских </td>
+          <td class="input phone_display"> 96 </td>
+          <td class="input phone_display"> - </td>
+          <td> Презентация </td>
+          </tr>
+          <tr>
+          <td> 2 </td>
+          <td> Марат Чучалов </td>
+          <td class="input phone_display"> 53 </td>
+          <td class="input phone_display"> - </td>
+          <td> Презентация </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div class='lay_out'>
+<div class='lay_out_block'>
+  <p style="font-style: italic; font-size: 18px;">Если вы оценили ВСЕ проекты и готовы выложить результаты, нажмите:</p>
+  <button class="lay_out_button" onclick="show_popap('modal-1')"> Выложить </button>
+</div>
+</div>
+
+<div class="overlay" id="modal-1">
+<div class="flex-popap">
+  <div class="popap">
+    <span class="close_popap">Закрыть</span>
+    <hr>
+    <h3>Вы уверены, что оценили все проекты и готовы выложить результаты?</h3>
+    <hr>
+    <button class=""> Выложить </button>
+  </div>
+</div>
+</div>
+
+<hr>
+
+<!-- Информация о проекте -->
+<div>
+  <h1  class="heading_nameproj"> Крутые идеи на 10 выпусков </h1>
+</div>
+
+<div class="info_proj_with">
+  <div class="info_with_1">
+      <h1>Приз: 100 000 рублей</h1>
+      <hr>
+      <h2>Окончание: 21.12.2019</h2>
+      <h2>Компания: Редакция</h2>
+      <h2>Автор: Алексей Пивоваров</h2>
+  </div>
+  <div class="info_with_2">
+      <video src="../img/d3486aff-5f00-40fe-b717-576dfb90f79b.mp4" class="info_with_video" controls></video> 
+  </div>
+  <h3 class="text_info_proj"> Итальянский художник и учёный, изобретатель, писатель, музыкант, 
+      один из крупнейших представителей искусства
+       Высокого Возрождения, яркий пример «универсального человека». 
+  </h3>
+</div>
+
+<div class="info_proj_without">
+  <div class="info_without_1">
+      <h1>Приз: 100 000 рублей</h1>
+      <hr>
+      <h2>Окончание: 21.12.2019</h2>
+      <h2>Компания: Редакция</h2>
+      <h2>Автор: Алексей Пивоваров</h2>
+  </div>
+  <div class="info_without_2">
+      <h3 class="text_info_proj_without"> О проекте: 
+          Итальянский художник и учёный, изобретатель, писатель, музыкант, 
+          один из крупнейших представителей искусства
+           Высокого Возрождения, яркий пример «универсального человека». 
+      </h3>
+  </div>
+</div>
+
+
+<!-- Презентация -->
+<div class="pdf_block">
+  <embed src="../img/1.pdf"  class="pdf_pre" />
+  <a href="../img/1.pdf" class="pdf_pre_phone" target="_blank" download>Открыть презентацию</a>
+</div>
 
 
 {% endblock %}
-

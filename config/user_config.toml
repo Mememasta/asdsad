@@ -1,0 +1,8 @@
+[database]
+
+DB_HOST = 'localhost'
+DB_PORT = 5432
+
+DB_NAME = 'crowdsourcing'
+DB_USER = 'crow_user'
+DB_PASS = 'crow_user'

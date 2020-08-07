@@ -1,0 +1,8 @@
+[database]
+
+DB_HOST = '10.129.0.16'
+DB_PORT = 6432
+
+DB_NAME = 'db_crow'
+DB_USER = 'www'
+DB_PASS = '12345poiuy'

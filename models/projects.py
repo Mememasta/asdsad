@@ -1,55 +1,44 @@
 import asyncpgsa
+
+
+from datetime import datetime
+from models.db import projects, projects_user, answer_user
+from models.user import users
 from sqlalchemy import (
             MetaData, Table, Column, ForeignKey,
-                Integer, String, DateTime, Date, VARCHAR, desc
-                
+                Integer, String, DateTime, Date, VARCHAR, desc, Boolean, update
+
         )
 from sqlalchemy.sql import select
-from models.user import users
-from datetime import datetime
-
 from sqlalchemy.orm import relationship
 
-metadata = MetaData()
-
-projects = Table(
-    'projects', metadata,
-
-    Column('id', Integer, primary_key=True),
-    Column('name', VARCHAR(255)),
-    Column('company', VARCHAR(255)),
-    Column('author_id', Integer, ForeignKey('users.id')),
-    Column('description', VARCHAR(255)),
-    Column('presentation', VARCHAR(255)),
-    Column('deadline', DateTime(timezone=True), default=datetime.utcnow), 
-    Column('member', Integer),
-    Column('gift', VARCHAR(255)),
-    Column('video', VARCHAR(255)),
-
-)
-
-projects_user = Table(
-    'projects_user', metadata,
-
-    Column('user_id', Integer, ForeignKey('users.id')),
-    Column('project_id', Integer, ForeignKey('projects.id'))
-)
-
-answer_user = Table(
-    'answer_user', metadata,
-
-    Column('user_id', Integer, ForeignKey('users.id')),
-    Column('projects_id', Integer, ForeignKey('projects.id')),
-    Column('answer', VARCHAR(2048))
-
-)
 
 class Project:
 
     @staticmethod
     async def get_all_projects(db):
         project = await db.fetch(
-            projects.select().where(projects.c.deadline > datetime.utcnow()).order_by(desc('member'))
+            projects.select().where(projects.c.deadline > datetime.utcnow()).where(projects.c.total == False).order_by(desc('member'))
+            # "SELECT * FROM projects as p LEFT JOIN projects_summary as p_s ON p_s.project_id = p.id WHERE p.deadline > $1 AND p_s.total = False ORDER BY member", datetime.utcnow()
+        )
+        return project
+
+    @staticmethod
+    async def get_total_project(db):
+        project = await db.fetch(
+            projects.select().where(projects.c.deadline < datetime.utcnow()).where(projects.c.total == True).order_by(desc('member'))
+        )
+        return project
+
+    @staticmethod
+    async def add_total(db, project_id):
+        # total = projects.update().where(projects.c.id == project_id).values(total = 'True')
+        await db.execute('UPDATE projects SET total = True WHERE id = $1', project_id)
+
+    @staticmethod
+    async def get_projects_by_id(db, project_id):
+        project = await db.fetchrow(
+            projects.select().where(projects.c.deadline > datetime.utcnow()).where(projects.c.id == project_id)
         )
         return project
 
@@ -64,10 +53,10 @@ class Project:
     async def get_project_by_id(db, project_id):
         project = await db.fetchrow(
            #projects.select().join(users).filter(users.id == projects.author_id).where(projects.c.id == project_id)
-           "SELECT p.*, u.name FROM projects as p left join users as u ON p.author_id = u.id where p.id = $1", project_id
+           "SELECT p.*, u.name user_id FROM projects as p left join users as u ON p.author_id = u.id where p.id = $1", project_id
         )
         return project
-    
+
     @staticmethod
     async def get_project_that_user_created(db, user_id):
         project = await db.fetch(
@@ -137,13 +126,14 @@ class Project:
         await db.execute('UPDATE projects SET member = $1 where id = $2', member, project_id)
 
     @staticmethod
-    async def create_answer(db, user_id, projects_id, answer): 
+    async def create_answer(db, user_id, projects_id, answer):
         user_answer = answer_user.insert().values(user_id = user_id, projects_id = projects_id, answer = answer)
         await db.execute(user_answer)
 
     @staticmethod
     async def get_all_answer(db, project_id):
         all_answer = await db.fetch(
-            answer_user.select().where(answer_user.c.projects_id == project_id)
+            #answer_user.select().where(answer_user.c.projects_id == project_id)
+            "SELECT a_u.*, u.name, u.secondname FROM users as u LEFT JOIN answer_user as a_u ON a_u.user_id = u.id WHERE a_u.projects_id = $1", project_id
         )
         return all_answer

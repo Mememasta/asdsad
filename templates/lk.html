@@ -1,44 +1,53 @@
 {% extends "base.html" %}
 
+{% block title %}
+  <title> Профиль </title>
+{% endblock %}
+
 {% block content %}
 
-  <!-- Загаловок -->
+  <div class="card_heading">
+    <div class="container" style="margin-top: 25px; text-align: right;">
+      <h1 class="heading_profile">{{user.name}} {{user.secondname}}
+        {% if user.user_photo %}
+        <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 50px;" width="100" height="100" class="card_user_photo img_lk" alt="...">
+        {% endif %}
+      </h1>
+      <hr class="betwen_projects">
+    </div>
+  </div>
+  <br>
+
+  <!--
   <div class="card_heading">
     <div class="container" style="margin-top: 25px">
       <h1 class="heading_profile">Личный кабинет</h1>
     </div>
   </div>
 
-  <!-- Карточка пользователя -->
-  <div class="card_user">
-    <div class="container">
+
+  <div class="">
+    <div class="container card_user">
       <div class="row">
         <div class="col-md-8">
           <h2> {{user.name}} {{user.secondname}} </h2>
           <h3> Email: {{user.email}} </h3>
           <h3> Город: {{user.city}} </h3>
           <h3> Занятость: {{user.occupation}} </h3>
-          <h3> Телеон: {{user.phone}} </h3>
+          <h3> Телефон: {{user.phone}} </h3>
         </div>
         {% if user.user_photo %}
         <div class="col-md-4">
-          <img src="{{ url('static', filename=user.user_photo) }}" width="100%" class="card_user_photo" alt="...">
+          <img src="{{ url('static', filename=user.user_photo) }}" style="border-radius: 50px;" width="200" height="200" class="card_user_photo img_lk" alt="...">
         </div>
         {% endif %}
       </div>
     </div>
   </div>
-  <br>
-  
-  <!--Статистика --> 
-  <div class="container">
-    <h1> Статистика </h1>
-    <p> Здесь будет какая-нибудь статиcтика, круто!</p>
-    <hr class="betwen_projects">
-  </div>
-  <br> 
-      
-  
+  <br> -->
+
+
+
    <!-- Проекты, в которыз я участвую -->
   {% if projects %}
   <div class="container">
@@ -51,9 +60,9 @@
         <div class="card" style="width: 100%; margin-bottom: 8%; height: 90%;">
           <div class="card-body">
             <h4><a href="view?project_id={{project.id}}">{{ project.name }}</a></h4>
-            <p>Вы еще НЕ отправили решение</p>
             <p> Окончание:{{ dt }}</p>
             {% if not project.answer %}
+            <p>Вы еще НЕ отправили решение</p>
             <form action="{{ url("send_answer") }}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ project.id }}">
                 <div class="form-group">
@@ -61,8 +70,8 @@
                 </div>
                 <input type="submit" class="btn btn-primary" value="Отправить решение" />
             </form>
-	    {% else %}
-	    <h5>Вы отправили решение</h5>
+	          {% else %}
+	            <h5>Вы отправили решение</h5>
             {% endif %}
           </div>
         </div>
@@ -74,8 +83,8 @@
   </div>
   {% endif %}
   <br>
-  
-  
+
+
 
   <!-- Мои проекты -->
   {% if project_that_user_created %}
@@ -100,8 +109,8 @@
   </div>
   {% endif %}
   <br>
- 
-  
+
+
 
   <!-- Реклама -->
 	<div class="container">

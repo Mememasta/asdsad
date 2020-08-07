@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
+{% block title %}
+  <title> Создать проект </title>
+{% endblock %}
+
 {% block content %}
 
 <br>
 <div class="container">
-	
+
 	<h4> Создание проекта происходит следующим образом: </h4>
 	<p>1. Вы заполняете все необходимые поля редактора проекта;</p>
 	<p>2. Проект отправляется на рассмотрение модераторам;</p>
 	<p>3. При возникновении вопросов, с вами связывается ваш личный куратор проекта для разрешение данны вопросов;</p>
   <p>4. После проект загруается на площадку. </p>
-  
+
   <h4> Условия и пожелания при создании проекта: </h4>
 	<p>1. Проект должен иметь краткое описание (примерно 2-4 предложения);</p>
 	<p>2. Проект должен иметь презентацию в формате PDF, где будет изложена в доступной форме проблема, дополнительная информация и что вы хотите получит от групп, которые будут решать данную проблему. Также в презентации должна быть почта или ссылка на мессенджер, по которым с вами можно связаться;</p>
@@ -18,20 +22,20 @@
   <p>4. Вознаграждение – это плата за интеллектуальную собственность, которую вам предоставляют группы. Вознаграждение может быть как денежным, так и иным, к примеру: стажировка, работа, знания и так далее, что вы придумаете. При денежном вознаграждении площадка взымает 5% от суммы для улучшения сервиса;</p>
   <p>5. Проект должен иметь дату окончания проекта, когда наступает эта дата, проект закрывается для людей;</p>
   <p>6. Проект не может противоречить Пользовательскому соглашению, если проект противоречит, то данный проект не будет опубликован.</p>
-	
+
 	<h4> Оценивание проектов и дальнейшее действия: </h4>
 	<p>1. После того как вы загрузили проект, люди начинают решать вашу проблему и отправлять свое решение до даты, которую вы указали; </p>
 	<p>2. После окончания времени, выделенного на решения проблемы, вы оцениваете каждое решение и выбираете победителя или победителей, вы можете разделить награду между несколькими командами;</p>
 	<p>3. Как-то передать награду, но каааааак???????????</p>
-  
+
   <br>
-  
+
   <p> Если у вас возникнут вопросы, вы можете задать их, отправив сообщение в телеграме @support или электронное письмо на адрес support@mail.ru. </p>
-   
+
 </div>
 
 <div class="container">
-  
+
     <div class="accordion" id="accordionExample">
       	<h5 class="mb-0">
         	<button class="glo" style="vertical-align:middle; font-size: 24px" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -40,16 +44,16 @@
         </h5>
     </div>
     <br>
-    
+
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-      
+
       <form action="{{ url('create_project') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" class="needs-validation" novalidate>
-      
+
         <div class="form-group">
           <label for="inputName">Название проекта</label>
           <input type="text" name='name' class="form-control" id="inputName" placeholder="Название проекта" required>
         </div>
-        
+
         <div class="form-group">
           <label for="inputCompany">Название вашей организации</label>
           <input type="text" name='company' class="form-control" id="inputCompany" placeholder="Организация" required>
@@ -66,22 +70,22 @@
           <label for="inputPresentation">Презентация (PDF)</label>
           <input type="file" class="form-control" name='presentation' id="inputPresentation" placeholder="Presentation" required>
         </div>
-        
+
         <p>
               <label for="date">Окончание конкурса:</label>
               <input type="date" id="date" name="deadline"/ required>
         </p>
-        
+
         <div class="form-group">
           <label for="inputGift">Награда</label>
           <input type="text" class="form-control" name='gift' id="inputGift" placeholder="Награда" required>
         </div>
-        
+
         <div class="form-group">
           <label for="inputVideo">Видео (Не обязательно)</label>
           <input type="file" class="form-control" name='video' id="inputVideo" placeholder="Video">
         </div>
-        
+
         <div class="form-group">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -94,7 +98,7 @@
         <input type="submit" class="btn btn-primary" value="Добавить проект" />
 
       </form>
-    
+
     </div>
 
 </div>

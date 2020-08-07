@@ -184,15 +184,6 @@ p.clip {
 
 
 
-/* Super_container используется в view_project and about_site */
-.super_container {
-  height: auto;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  border: 0px solid #000;
-  box-sizing: border-box;
-}
 
 
 
@@ -226,20 +217,6 @@ form {
 }
 
 
-
-/* Выбор темы проекта*/
-.sort_project {
-  position: relative; 
-  margin-left: 0;
-  width: 95%;
-  height: 42px;
-  border: 2px solid #999999;
-}
-@media (max-width:768px){
-  .sort_project {
-    width: 100%;
-  }
-}
 
 
 
@@ -483,100 +460,5 @@ form {
 
 
 
-/* Стили О ПРОЕКТЕ */
-.se-container {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-}
-
-.se-slope{
-    width: 50%;
-    height: 300px;
-    position: relative;
-    float: left;
-    overflow: hidden;
-}
-
-.se-slope .se-content{
-    margin: 50px 100px 0px 100px;
-}
-
-.se-slope-black{
-    background: #79edfc;
-}
-.se-slope-pink{
-    background: #fa6c98;
-}
-
-.se-slope-black:nth-child(odd):after,
-.se-slope-black:nth-child(even):after{
-    content: '';
-    position: absolute;
-    display: block;
-    bottom: 0px;
-    width: 0px;
-    height: 0px;
-    border-top: 150px solid transparent;
-    border-bottom: 150px solid transparent;
-}
-.se-slope-black:nth-child(odd):after{
-    border-right: 60px solid #fa6c98;
-    right: 0px;
-}
-.se-slope-black:nth-child(even):after{
-    border-left: 60px solid #fa6c98;
-    left: 0px;
-}
 
 
-
-/* ИСправленный Navbar бутстрапа */
-.link1{
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.link2{
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-
-
-/* Таблиы */
-.table_score{
-
-}
-.table_th {
-  font-size: 18px;
-  font-weight: 600;
-  text-decoration: none;
-  border: 1px solid grey;
-  padding: 8px 8px 8px 8px;
-}
-.table_td {
-  font-size: 14px;
-  border: 1px solid grey;
-  padding: 8px 8px 8px 8px;
-}
-@media (max-width: 600px){
-  .table_score{}
-  .table_th{
-    padding: 5px 5px 5px 5px;
-   }
-  .table_td{
-    padding: 5px 5px 5px 5px;
-   }
-}
-
-
-
-/*FOOTRER*/
-footer {
-background: ;
-width: 100%;
-}

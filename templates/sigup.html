@@ -1,42 +1,47 @@
 {% extends "login.html" %}
 
+{% block title %}
+  <title> Регистрация </title>
+{% endblock %}
+
 {% block content %}
 <div class="card container form-signin" style="width: 100%; border-radius: 15px">
   <form action="{{ url('signup') }}" class="form-signin" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		<h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
-    <label class="sr-only" for="inputEmail">Email address</label>
+    <label class="sr-only" for="inputEmail">Email</label>
     <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
-    <div class="accordion" id="accordionExample">
+    <label for="inputPassword" class="sr-only"> Пароль </label>
+    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Пароль" required>
+	<label class="sr-only" for="inputName"> Имя </label>
+	<input type="text" name='name' class="form-control" id="inputName" placeholder="Имя" required>
+    <label class="sr-only" for="inputSecondname"> Фамилия </label>
+	<input type="text" name='secondname' class="form-control" id="inputSecondname" placeholder="Фамилия" required>
+
+	<div class="accordion" id="accordionExample">
       	<h5 class="mb-0">
         	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          	Additional Information(not necessary)
-          </button>
+          	Дополнительная информация <br> (не обязательно)
+            </button>
         </h5>
-     	</div>
+    </div>
 
-      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-						
-    		<label class="sr-only" for="inputName">Name</label>
-    		<input type="text" name='name' class="form-control" id="inputName" placeholder="Name">
-    		<label class="sr-only" for="inputSecondname">Secondname</label>
-    		<input type="text" name='secondname' class="form-control" id="inputSecondname" placeholder="Secondname" required>
-				<input type='text' class='form-control datepicker-here' placeholder="Date of Birth" id="my-element" name="date" />
-    		<input type="text" class="form-control" name='phone' id="inputPhone" placeholder="Phone Number">
-    		<input type="text" class="form-control" name='occupation' id="inputOccupation" placeholder="Your occupation">
-    		<input type="text" class="form-control" name='city' id="inputCity" placeholder="Your city">
-				<div class="input-group mb-3">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+    	<input type='text' class='form-control datepicker-here' placeholder="Дата рождения" id="my-element" name="date" />
+    	<input type="text" class="form-control" name='phone' id="inputPhone" placeholder="Номер телефона">
+    	<input type="text" class="form-control" name='occupation' id="inputOccupation" placeholder="Занятость">
+    	<input type="text" class="form-control" name='city' id="inputCity" placeholder="Город">
+			<div class="input-group mb-3">
     			<div class="input-group-prepend">
-      			<span class="input-group-text" id="inputGroupFileAddon01">Avatar</span>
-      		</div>
-      		<div class="custom-file">
-      			<input type="file" class="custom-file-input"i name="user_photo" value="" placeholder="Choose file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        		<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-      		</div>
+      				<span class="input-group-text" id="inputGroupFileAddon01">Фото</span>
+      			</div>
+      			<div class="custom-file">
+      				<input type="file" class="custom-file-input"i name="user_photo" value="" placeholder="Choose file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+        			<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      			</div>
     		</div>
       </div>
-    	<button type="submit" class="btn btn-primary btn-block">Sign up</button>
+    	<button type="submit" class="btn btn-primary btn-block">Зарегестрироваться</button>
       <p>{{ error }}</p>
 
   		<p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>

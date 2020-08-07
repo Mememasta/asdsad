@@ -1,5 +1,4 @@
 
-
 .header {
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -67,13 +66,24 @@
 
 .header_link{
   color: white;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 400;
   text-decoration: none;
 }
+.header_link:after {
+  background-color: #ff6000;
+  display: block;
+  content: "";
+  height: 3px;
+  width: 0%;
+  -webkit-transition: width .5s ease-in-out;
+  -moz--transition: width .5s ease-in-out;
+  transition: width .5s ease-in-out;
+}
+.header_link:hover:after {width: 100%;}
 .header_link:hover {
-  text-decoration: none; /* Убираем подчёркивание */
-  color: lawngreen; /* Цвет ссылки */
+  text-decoration: none;
+  color: white;
 }
 
 .header_profile{
@@ -81,6 +91,8 @@
   padding: 5px;
   border-radius: 10px;
   color: #c2c2c2;
+  font-size: 24px;
+  font-weight: 400;
 }
 .header_profile:hover{
   background-color: #6d6b82;
@@ -170,15 +182,4 @@
     font-size: 28px;
     font-weight: 600;
   }
-}
-
-
-.content{
-}
-
-.content_text{
-  font-size: 18px;
-}
-
-.content_text p{
 }

@@ -1,0 +1,439 @@
+
+
+
+/* Первый блок */
+.first_blocks {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  
+    height: 100%;
+    background-color: white;
+    padding-top: 2%;
+    padding-bottom: 4%;
+  }
+  
+  .first_block_1 {
+   /* background-color: pink;*/
+    width: 40%;
+  }
+  .first_block_crow {
+    padding-top: 5%
+  }
+  
+  @media (max-width:767px){
+    .first_block_1 {
+        width: 100%;
+    }
+    .first_block_crow {
+        padding: 5% 5% 0% 5%;
+    }
+  }
+  
+  .add_project {
+    display: block;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color: black;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 2% 5%;
+    border: #FA8072 5px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+    background: white;
+  }
+  .add_project:hover { background: #FFE4E1; }
+  .add_project:active { background: white; }
+  
+  .first_block_2 {
+    width: 50%;
+    margin-top: 1%;
+  }
+  
+  .header_first_block_2 {
+    padding-top: 5%;
+    font-size: 78px;
+  }
+  
+  .hr_first {
+    margin: 0;
+  padding: 0;
+  height: 6px;
+  border: none;
+    background: linear-gradient(45deg, rgba(131, 236, 184, 0.726), rgb(255, 255, 255));
+  }
+  
+  .text_first_block_2 {
+    padding-top: 4%;
+    font-size: 28px;
+  }
+  
+  @media (min-width:1550px){
+    .header_first_block_2 {
+        font-size: 100px;
+    }
+    .text_first_block_2 {
+        font-size: 36px;
+    }
+  }
+  
+  @media (max-width:1300px){
+    .header_first_block_2 {
+        font-size: 62px;
+    }
+    .text_first_block_2 {
+        font-size: 24px;
+    }
+  }
+  
+  @media (max-width:992px){
+    .header_first_block_2 {
+        font-size: 42px;
+    }
+    .text_first_block_2 {
+        font-size: 20px;
+    }
+  }
+  
+  @media (max-width:768px){
+    .first_block_2 {
+        width: 80%;
+    }
+    .header_first_block_2 {
+        font-size: 56px;
+    }
+    .text_first_block_2 {
+        font-size: 24px;
+    }
+  }
+  
+  @media (max-width:576px){
+    .first_block_2 {
+        width: 80%;
+    }
+    .header_first_block_2 {
+        font-size: 56px;
+    }
+    .text_first_block_2 {
+        font-size: 16px;
+    }
+  }
+  
+  .two_with_photo {
+    display: flex;
+    flex-wrap: wrap;
+  
+    height: 100%;
+    /*background-color: aqua;*/
+  }
+  
+  .two_first {
+    width: 50%;
+  }
+  
+  .two_second {
+    width: 40%;
+    margin: 5% 5% 5% 5%;
+  }
+  
+  .first_block_planet {
+    padding-top: 20%;
+  }
+  
+  @media (max-width:576px){
+    .two_first {
+        width: 100%;
+    }
+    
+    .two_second {
+        display: none;
+    }
+  }
+  
+  .block_text_first_block_2 {
+    width: 100%;
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* Блок о проекте */
+  .second_blocks {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 100%;
+    background-color: #f5f5f5;
+    padding-top: 4%;
+    padding-bottom: 4%;
+  }
+  
+  .heading_second_block_1 {
+    padding-top: 5%;
+    font-size: 56px;
+    text-align: center;
+  }
+  
+  .underline_ani { 
+    transition: border 0.5s ease-in;
+  }
+  
+  .second_blocks:hover .underline_ani {border-bottom: 4px groove darkgreen;}
+  
+  .green {transition: color 0.8s ease-in;}
+  
+  .second_blocks:hover .green {color: green;}  
+  
+  .second_block_1 {
+    width: 40%;
+    /*background-color: red;*/
+  }
+  
+  .second_block_2 {
+    position: relative;
+    width: 60%;
+    /*background-color: blueviolet;*/
+  }
+  
+  .second_block_video {
+    width: 94%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 1%;
+    right: 5%;
+    border-radius: 15px;
+  }
+  
+  .text_second_block_1 {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    font-size: 28px;
+  }
+  
+  @media (max-width:1200px){
+    .second_block_1 {
+       width: 45%;
+    }
+    
+    .second_block_2 {
+        width: 55%;
+     }
+  
+    .heading_second_block_1 {
+        font-size: 48px;
+    }
+    
+    .text_second_block_1 {
+        font-size: 24px;
+    }
+  }
+  
+  
+  
+  @media (max-width:992px){
+    .second_block_1 {
+        width: 40%;
+     }
+     
+     .second_block_2 {
+         width: 60%;
+      }
+  
+     .heading_second_block_1 {
+         font-size: 42px;
+     }
+     
+     .text_second_block_1 {
+         font-size: 22px;
+     }
+  }
+  
+  
+  @media (max-width:768px){
+    .second_block_1 {
+        width: 100%;
+     }
+     
+     .second_block_2 {
+        width: 100%;
+      }
+      .second_block_video {
+        width: 90%;
+        position: relative;
+        padding-bottom: 5%;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 5%;
+        right: 5%;
+        border-radius: 10px;
+    }
+  
+     .heading_second_block_1 {
+         font-size: 52px;
+     }
+     
+     .text_second_block_1 {
+         font-size: 28px;
+     }
+  }
+  
+  @media (max-width:576px){
+    .heading_second_block_1 {
+        font-size: 42px;
+    }
+    
+    .text_second_block_1 {
+        font-size: 22px;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* Лучшие проекты */
+  .third_block {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    background-color: white;
+    padding-top: 4%;
+    padding-bottom: 4%;
+  
+  }
+  
+  .heading_third_block {
+    width: 100%;
+    font-size: 64px;
+    text-align: center;
+    padding-bottom: 3%;
+  }
+  
+  .underline_best_project { transition: border 0.5s ease-in;}
+  
+  .third_block:hover .underline_best_project {border-bottom: 4px groove rgb(223, 155, 255);}
+  
+  .third_block_1 {
+    width: 25%;
+    border-radius: 20px;
+    background-color: #fdf9f9;
+  }
+  
+  .third_block_1 video { 
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  @media (max-width: 1200px){
+    .third_block_1 {
+        width: 85%;
+        padding: 5px;
+        margin-bottom: 25px;
+        border: 2px solid rgb(194, 193, 193) ;
+        border-radius: 12px;
+        background-color: #f5f5f5;
+    }
+  
+    .heading_third_block {
+        padding-top: 6%;
+        padding-bottom: 6%;
+    }
+  
+    .heading_name_1 {
+        font-size: 32px;
+    }
+  }
+  
+  @media (max-width:576px){
+    .heading_third_block {
+        font-size: 42px;
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
+  /* Футер */
+  .fourth_block {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  
+  .fourth_block_1 {
+    width: 30%;
+    text-align: center;
+    margin-top: 1%;
+    padding: 1%;
+  }
+  
+  .line_1 {transition: border 0.2s ease-in;}
+  
+  .fourth_block_1:hover .line_1{
+    border-bottom: 5px groove rgb(237, 253, 246);
+  }
+  
+  .heading_fourth_block {
+    padding-bottom: 2%;
+  }
+  
+  .money:after {
+    background-color: #ff6000;
+    display: block;
+    content: "";
+    height: 3px;
+    width: 0%;
+    margin: auto;
+    -webkit-transition: width .5s ease-in-out;
+    -moz--transition: width .5s ease-in-out;
+    transition: width .5s ease-in-out;
+    justify-content: center;
+  }
+  .money:hover:after {width: 20%;}
+  .money:hover {
+    text-decoration: none;
+    color: black;
+  }
+  
+  
+  @media (max-width:768px){
+    .fourth_block {
+        padding-top: 5%;
+    }
+  
+    .fourth_block_1 {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+  }
+  
+  
+
+  
+  
+  /* Общие стили */
+  .zoom {
+    transition: transform .3s; /* Animation */
+  }
+  .zoom:hover {
+    transform: scale(1.1); /* 1 -это 1 к 1, для увеличения писать больше 1 */
+  }
+  
+  

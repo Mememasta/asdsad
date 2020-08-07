@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block title %}
+  <title> Проекты </title>
+{% endblock %}
 
 {% block content %}
 
@@ -10,29 +13,17 @@
 
 <!--Фильтр и поиск-->
 <div class="container" style="margin-top:25px">
-	<div class="row">
-  	<div class="col-md-4 ">
-        <select class="custom-select custom-select-lg mb-3 sort_project">
-          <option selected>Все проекты</option>
-          <option value="1">IT</option>
-          <option value="2">Технологии и исследования</option>
-          <option value="3">Бизнес</option>
-          <option value="4">Дизайн</option> 
-          <option value="5">Другое</option>         
-        </select>
-  	</div>
-		<div class="col-md-8 d1 ">
+		<div class="d1 ">
       <form >
         <input  type="text" placeholder="Search" aria-label="Search">
         <button type="submit">Поиск</button>
       </form>
 		</div>
-	</div>
   <hr class="betwen_projects">
 </div>
-  
 
-     
+
+
 <!-- Projects -->
 {% for proj in project %}
 <div class="container">

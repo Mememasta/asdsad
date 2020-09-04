@@ -5,6 +5,7 @@ from config.common import BaseConfig
 from handlers.api import get_user, get_all_project, get_project_by_id, get_text
 
 def setup_routes(app):
+    # Создание и привязка страниц к контроллерам
     app.router.add_get('/', Index.get, name='index')
     app.router.add_get('/login', Login.get, name='login')
     app.router.add_post('/login', Login.post)
@@ -30,4 +31,5 @@ def setup_routes(app):
 
 
 def setup_static_routes(app):
+    # Путь к статическим файлам
     app.router.add_static('/static/', path=BaseConfig.static_dir, name='static')

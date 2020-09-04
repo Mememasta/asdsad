@@ -17,6 +17,7 @@ class Index(web.View):
 
     @aiohttp_jinja2.template('base.html')
     async def get(self):
+        # Рендеринг главной страницы
         conf = self.app['config']
         session = await get_session(self)
         user = {}
@@ -29,6 +30,7 @@ class Login(web.View):
 
     @aiohttp_jinja2.template('login.html')
     async def get(self):
+        # Рендеринг страницы авторизации
         session = await get_session(self)
         context = {}
         if 'user' in session:
@@ -38,6 +40,7 @@ class Login(web.View):
         return dict()
 
     async def post(self):
+        # Создание сессии
         data = await self.post()
         session = await get_session(self)
         location = self.app.router['login'].url_for()
@@ -58,6 +61,7 @@ class Signup:
 
     @aiohttp_jinja2.template('sigup.html')
     async def get(self):
+        # Рендеринг страницы регистрации
         session = await get_session(self)
         user = {}
         context = {}
@@ -68,6 +72,7 @@ class Signup:
         return dict()
 
     async def post(self):
+        # Создание нового пользователя
         data = await self.post()
         location = self.app.router['signup'].url_for()
 
@@ -117,6 +122,7 @@ class Signup:
 class Logout:
 
     async def get(self):
+        # Очистка сессии
         session = await get_session(self)
 
         if 'user' in session:
@@ -135,6 +141,7 @@ class Profile:
 
     @aiohttp_jinja2.template('lk.html')
     async def get(self):
+        # Рендеринг страницы профиля
         session = await get_session(self)
         config = self.app['config']
         user = {}
@@ -175,6 +182,7 @@ class Profile:
 class SendAnswer:
 
     async def post(self):
+        # Создание ответа пользователя
         session = await get_session(self)
         data = await self.post()
 
@@ -201,6 +209,7 @@ class CreateProjects:
 
     @aiohttp_jinja2.template('create_project.html')
     async def get(self):
+        # Рендеринг страницы с формой для создания проектов
         session = await get_session(self)
         config = self.app['config']
         user = {}
@@ -217,6 +226,7 @@ class CreateProjects:
 
 
     async def post(self):
+        # Создание проекта
         data = await self.post()
         location = self.app.router['create_project'].url_for()
 
@@ -263,6 +273,7 @@ class ViewProject:
 
     @aiohttp_jinja2.template('view_project.html')
     async def get(self):
+        # Рендеринг страницы определенного проекта
         session = await get_session(self)
         config = self.app['config']
         params = self.rel_url.query
@@ -297,6 +308,7 @@ class ViewProject:
         return dict(user = user, project = project, author_name = author_name, dt=dt, user_in_project = user_in_project, user_is_author = user_is_author, answers = answers, results = results)
 
     async def post(self):
+        # Участвовать/Покинуть проект
         data = await self.post()
         session = await get_session(self)
 
@@ -323,6 +335,7 @@ class Results:
 
     @aiohttp_jinja2.template('results.html')
     async def get(self):
+        # Рендеринг страницы с законченными проектами
         session = await get_session(self)
         user = {}
         total_projects = {}
@@ -333,6 +346,7 @@ class Results:
         return dict(user = user, total_projects = total_projects)
 
     async def post(self):
+        # Добавление проектов в список истекших
         session = await get_session(self)
         user = session['user']
         data = await self.post()
@@ -351,6 +365,7 @@ class Results:
 class CreateResult:
 
     async def post(self):
+        # Создание результатов по проекту
         data = await self.post()
         session = await get_session(self)
         score = data['score']
@@ -367,6 +382,7 @@ class CreateResult:
 class Projects:
 
     @aiohttp_jinja2.template('projects.html')
+    # Рендеринг страницы со всеми проектами
     async def get(self):
         session = await get_session(self)
         config = self.app['config']
@@ -383,6 +399,7 @@ class About:
 
     @aiohttp_jinja2.template('about_site.html')
     async def get(self):
+        # Рендеринг страницы описания о сайте
         session = await get_session(self)
         config = self.app['config']
         user = {}
@@ -396,6 +413,7 @@ class Contacts:
 
     @aiohttp_jinja2.template('contact.html')
     async def get(self):
+        # Рендеринг страницы с контактами
         session = await get_session(self)
         config = self.app['db']
         user = {}

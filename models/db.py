@@ -11,6 +11,8 @@ from sqlalchemy import select
 
 metadata = MetaData()
 
+# Создание таблиц
+
 users = Table(
     'users', metadata,
 
